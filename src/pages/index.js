@@ -1,18 +1,24 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "gatsby"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import Image from "../components/Image"
+import SEO from "../components/SEO"
 import MessageSend from "../components/MessageSend"
 
-const IndexPage = () => (
-  <Layout>
+import { AppContext } from '../App'
+
+const IndexPage = () => {
+  const { peer } = useContext(AppContext);
+
+  console.log(peer)
+
+  return (
+  <>
     <SEO title="Home" />
     <h1>Send a message to your secret friend</h1>
     <p>You will need to stay connected in order for the message to be sent when your secret friend opens the secret link.</p>
     <MessageSend />
-  </Layout>
-)
+  </>
+)}
 
 export default IndexPage
