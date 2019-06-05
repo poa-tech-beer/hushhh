@@ -8,9 +8,9 @@ import MessageSend from "../components/MessageSend"
 import { AppContext } from "../App"
 
 const IndexPage = () => {
-  const { peer } = useContext(AppContext)
+  const context = useContext(AppContext)
 
-  console.log(peer)
+  console.log(context)
 
   return (
     <>
