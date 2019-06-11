@@ -9,8 +9,10 @@ const MessageSend = () => {
   const [isFormSubmit, setFormSubmit] = useState(false)
   console.log(isFormSubmit)
 
+  const host = `${window.location.host}/?id=${peer.id}`
+
   if (isFormSubmit) {
-    return <p>{peer.id}</p>
+    return <p>{host}</p>
   } else {
     return (
       <form
