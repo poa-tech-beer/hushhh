@@ -10,9 +10,21 @@ const MessageSend = () => {
   console.log(isFormSubmit)
 
   const host = `${window.location.host}/?id=${peer.id}`
+  const linkWhats = `https://wa.me/?text=${host}`
 
   if (isFormSubmit) {
-    return <p>{host}</p>
+    return (
+      <div>
+        <p>
+          <a href={host}>{host}</a>
+        </p>
+        <p>
+          <a href={linkWhats} data-action="share/whatsapp/share">
+            Whatsapp Link
+          </a>{" "}
+        </p>
+      </div>
+    )
   } else {
     return (
       <form
