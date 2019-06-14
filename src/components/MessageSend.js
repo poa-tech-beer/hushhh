@@ -27,36 +27,43 @@ const MessageSend = () => {
     )
   } else {
     return (
-      <form
-        onSubmit={e => {
-          setFormSubmit(true)
-          e.preventDefault()
-        }}
-      >
-        <p>Textarea to fill</p>
-        <wired-textarea
-          style={{
-            display: `block`,
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `1.45rem 1.0875rem`,
-          }}
-          onChange={e => {
-            setFormState(e.currentTarget.value)
-          }}
-          value={formValues}
-        />
-        <button
-          style={{
-            display: `block`,
-            margin: `0 auto`,
-            maxWidth: 360,
-            padding: `1.45rem 1.0875rem`,
+      <h1>
+        <h1>Send a message to your secret friend!</h1>
+        <p>
+          You will need to stay connected in order for the message to be sent
+          when your secret friend opens the secret link.
+        </p>
+        <form
+          onSubmit={e => {
+            setFormSubmit(true)
+            e.preventDefault()
           }}
         >
-          Enviar
-        </button>
-      </form>
+          <p>Textarea to fill</p>
+          <wired-textarea
+            style={{
+              display: `block`,
+              margin: `0 auto`,
+              maxWidth: 960,
+              padding: `1.45rem 1.0875rem`,
+            }}
+            onChange={e => {
+              setFormState(e.currentTarget.value)
+            }}
+            value={formValues}
+          />
+          <button
+            style={{
+              display: `block`,
+              margin: `0 auto`,
+              maxWidth: 360,
+              padding: `1.45rem 1.0875rem`,
+            }}
+          >
+            Enviar
+          </button>
+        </form>
+      </h1>
     )
   }
 }

@@ -4,23 +4,18 @@ import { Link } from "gatsby"
 import Image from "../components/Image"
 import SEO from "../components/SEO"
 import MessageSend from "../components/MessageSend"
+import MessageReceive from "../components/MessageReceive"
 
 import { AppContext } from "../App"
 
 const IndexPage = () => {
   const context = useContext(AppContext)
-
-  console.log(context)
-
+  const currentRoute = new URLSearchParams(window.location.search)
+  const id = currentRoute.get("id")
   return (
     <>
       <SEO title="Home" />
-      <h1>Send a message to your secret friend</h1>
-      <p>
-        You will need to stay connected in order for the message to be sent when
-        your secret friend opens the secret link.
-      </p>
-      <MessageSend />
+      {id ? <MessageReceive id={id} /> : <MessageSend />}
     </>
   )
 }
