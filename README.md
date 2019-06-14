@@ -12,5 +12,5 @@
 ### Part 2 : receiver
 
 1. User B opens link -> sees `src/components/MessageReceive.js`
-1. PeerJS handles handshake - `connection = peer.connect(id)`
+1. User B connects to User A using the `id` contained in link - `connection = peer.connect(id)`
 1. When connection occurs - `connection.on("open")` the sender is notified - `connection.send()`
