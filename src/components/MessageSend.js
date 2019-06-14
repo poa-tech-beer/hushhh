@@ -9,7 +9,7 @@ const MessageSend = () => {
   const [isFormSubmit, setFormSubmit] = useState(false)
   console.log(isFormSubmit)
 
-  const host = `${window.location.host}/?id=${peer.id}`
+  const host = `${window.location.href}?id=${peer.id}`
   const linkWhats = `https://wa.me/?text=${host}`
 
   if (isFormSubmit) {
