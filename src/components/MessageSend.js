@@ -1,31 +1,40 @@
-import PropTypes from "prop-types"
-import { Link } from "gatsby"
 import React, { useState } from "react"
-import { WiredTextarea } from "wired-elements"
 import { peer } from "../services/p2p"
 
-const MessageSend = () => {
+// See https://github.com/peers/peerjs/blob/master/examples/index.jsx
+
+/**
+ * When user arrives on index without an ID (-> sender).
+ *
+ * @see src/pages/index.js
+ */
+const MessageSend = ({ onConnected }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
-  console.log(isFormSubmit)
-
   const host = `${window.location.href}?id=${peer.id}`
   const linkWhats = `https://wa.me/?text=${host}`
 
-  if (isFormSubmit) {
-    return (
-      <div>
-        <p>
-          <a href={host}>{host}</a>
-        </p>
-        <p>
-          <a href={linkWhats} data-action="share/whatsapp/share">
-            Whatsapp Link
-          </a>{" "}
-        </p>
-      </div>
-    )
-  } else {
+  /**
+   * Event handler: when the receiver opens the link
+   *
+   * (so, keep window open, for heaven's sake)
+   */
+  peer.on("connection", connection => {
+    // console.log("Other peer has connected!")
+
+    // This callback comes from the parent.
+    // It will show an "alert" component.
+    // @see src/pages/index.js
+    onConnected()
+
+    connection.on("data", data => {
+      console.log("on data : the sender received confirmation.")
+      console.log(data)
+    })
+  })
+
+  // Not submitted yet (enter message + show button "send").
+  if (!isFormSubmit) {
     return (
       <h1>
         <h1>Send a message to your secret friend!</h1>
@@ -64,6 +73,30 @@ const MessageSend = () => {
           </button>
         </form>
       </h1>
+    )
+  }
+
+  // OnSubmit = 1st half : the id is created, message not sent (yet).
+  // when receiver opens the link (on src/components/MessageReceive.js), the
+  // connection will happen.
+  else {
+    return (
+      <div>
+        <p style={{ fontSize: "2em" }}>
+          Thank you for submitting your message.
+          <br />
+          Now send link below to friend then wait for your friend to open the
+          message.
+        </p>
+        <p>
+          <a href={linkWhats} data-action="share/whatsapp/share">
+            Whatsapp Link
+          </a>
+          <br />
+          <br />
+          <pre>{host}</pre>
+        </p>
+      </div>
     )
   }
 }
