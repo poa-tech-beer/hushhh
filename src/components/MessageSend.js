@@ -59,7 +59,7 @@ const MessageSend = ({ onConnected }) => {
               maxWidth: 960,
               padding: `1.45rem 1.0875rem`,
             }}
-            onChange={e => {
+            onInput={e => {
               setFormState(e.currentTarget.value)
             }}
             value={formValues}
