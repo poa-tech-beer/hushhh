@@ -91,14 +91,14 @@ const MessageSend = ({ onConnected }) => {
           Now send link below to friend then wait for your friend to open the
           message.
         </p>
-        <p>
+        <div>
           <a href={linkWhats} data-action="share/whatsapp/share">
             Whatsapp Link
           </a>
           <br />
           <br />
-        </p>
-        <pre>{host}</pre>
+          <pre>{host}</pre>
+        </div>
       </div>
     )
   }
