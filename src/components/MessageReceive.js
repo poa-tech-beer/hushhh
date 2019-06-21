@@ -30,6 +30,15 @@ const MessageReceive = ({ id }) => {
       connection.send("I have received your message. Punk.")
       setMsgReceived(true)
     })
+
+    /**
+     * Now the sender.e.s knows we have opened his/her link, so we listen to the
+     * 2nd step : sender.e.s sends the actual message content.
+     */
+    connection.on("data", data => {
+      console.log("Ok, the message is :")
+      console.log(data)
+    })
   }, [id])
 
   if (msgIsOpened) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { peer } from "../services/p2p"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
@@ -14,29 +14,32 @@ const MessageSend = ({ onConnected }) => {
   const host = `${window.location.href}?id=${peer.id}`
   const linkWhats = `https://wa.me/?text=${host}`
 
-  /**
-   * Event handler: when the receiver opens the link
-   *
-   * (so, keep window open, for heaven's sake)
-   */
-  peer.on("connection", connection => {
-    // console.log("Other peer has connected!")
+  useEffect(() => {
+    /**
+     * Event handler: when the receiver opens the link
+     *
+     * (so, keep window open, for heaven's sake)
+     */
+    peer.on("connection", connection => {
+      // console.log("Other peer has connected!")
 
-    // This callback comes from the parent.
-    // It will show an "alert" component.
-    // @see src/pages/index.js
-    onConnected()
+      // This callback comes from the parent.
+      // It will show an "alert" component.
+      // @see src/pages/index.js
+      onConnected()
 
-    connection.on("data", data => {
-      console.log("on data : the sender received confirmation.")
-      console.log(data)
+      connection.on("data", data => {
+        console.log("on data : the sender received confirmation.")
+        console.log(data)
+        connection.send(JSON.stringify(formValues))
+      })
     })
-  })
+  }, [])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
     return (
-      <h1>
+      <div>
         <h1>Send a message to your secret friend!</h1>
         <p>
           You will need to stay connected in order for the message to be sent
@@ -72,7 +75,7 @@ const MessageSend = ({ onConnected }) => {
             Enviar
           </button>
         </form>
-      </h1>
+      </div>
     )
   }
 
@@ -94,8 +97,8 @@ const MessageSend = ({ onConnected }) => {
           </a>
           <br />
           <br />
-          <pre>{host}</pre>
         </p>
+        <pre>{host}</pre>
       </div>
     )
   }
