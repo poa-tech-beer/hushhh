@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { peer } from "../services/p2p"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
@@ -14,13 +14,11 @@ const MessageSend = ({ onConnected }) => {
   const host = `${window.location.href}?id=${peer.id}`
   const linkWhats = `https://wa.me/?text=${host}`
 
-  useEffect(() => {
-    /**
-     * Event handler: when the receiver opens the link
-     *
-     * (so, keep window open, for heaven's sake)
-     */
-    peer.on("connection", connection => {
+  // Add errors event listeners
+  const handleConnectionError = useCallback(err => console.log(err), [])
+
+  const handleConnection = useCallback(
+    connection => {
       // console.log("Other peer has connected!")
 
       // This callback comes from the parent.
@@ -31,10 +29,29 @@ const MessageSend = ({ onConnected }) => {
       connection.on("data", data => {
         console.log("on data : the sender received confirmation.")
         console.log(data)
+      })
+
+      connection.on("error", handleConnectionError)
+
+      connection.on("open", () => {
         connection.send(JSON.stringify(formValues))
       })
-    })
-  }, [])
+    },
+    [formValues, handleConnectionError, onConnected]
+  )
+
+  useEffect(() => {
+    /**
+     * Event handler: when the receiver opens the link
+     *
+     * (so, keep window open, for heaven's sake)
+     */
+    peer.on("connection", handleConnection)
+
+    return () => {
+      peer.off("connection", handleConnection)
+    }
+  }, [handleConnection])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
