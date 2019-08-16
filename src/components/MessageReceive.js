@@ -12,7 +12,8 @@ import { peer } from "../services/p2p"
  * @see src/pages/index.js
  */
 const MessageReceive = ({ id }) => {
-  const [msgIsOpened, setMsgReceived] = useState(false)
+  const [msgSenderIsNotified, setMsgReceived] = useState(false)
+  const [msgContent, setMsgContent] = useState("")
 
   useEffect(() => {
     // When the user reaches this page, the sender is already waiting on the other
@@ -36,13 +37,24 @@ const MessageReceive = ({ id }) => {
      * 2nd step : sender.e.s sends the actual message content.
      */
     connection.on("data", data => {
-      console.log("Ok, the message is :")
-      console.log(data)
+      setMsgContent(data)
     })
   }, [id])
 
-  if (msgIsOpened) {
-    return <p>{`The sender is aware you have opened the message. 🕵`}</p>
+  if (msgSenderIsNotified || msgContent.length) {
+    let output = ""
+    if (msgSenderIsNotified) {
+      output = <p>{`The sender is aware you have opened the message. 🕵`}</p>
+    }
+    if (msgContent.length) {
+      output = (
+        <div>
+          {output}
+          <p>{msgContent}</p>
+        </div>
+      )
+    }
+    return output
   } else {
     return <p>{`You are opening message id = '${id}'...`}</p>
   }

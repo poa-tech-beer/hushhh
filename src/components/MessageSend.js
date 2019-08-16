@@ -34,7 +34,7 @@ const MessageSend = ({ onConnected }) => {
       connection.on("error", handleConnectionError)
 
       connection.on("open", () => {
-        connection.send(JSON.stringify(formValues))
+        connection.send(formValues)
       })
     },
     [formValues, handleConnectionError, onConnected]
