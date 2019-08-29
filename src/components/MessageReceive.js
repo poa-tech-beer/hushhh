@@ -11,7 +11,7 @@ import { peer } from "../services/p2p"
  *
  * @see src/pages/index.js
  */
-const MessageReceive = ({ id }) => {
+const MessageReceive = ({ id, setAlert }) => {
   const [msgSenderIsNotified, setMsgReceived] = useState(false)
   const [msgContent, setMsgContent] = useState("")
 
@@ -30,6 +30,7 @@ const MessageReceive = ({ id }) => {
     connection.on("open", () => {
       connection.send("I have received your message. Punk.")
       setMsgReceived(true)
+      setAlert("receiver has opened your message")
     })
 
     /**

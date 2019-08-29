@@ -8,7 +8,7 @@ import { peer } from "../services/p2p"
  *
  * @see src/pages/index.js
  */
-const MessageSend = ({ onConnected }) => {
+const MessageSend = ({ onConnected, setAlert }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const host = `${window.location.href}?id=${peer.id}`
@@ -19,16 +19,8 @@ const MessageSend = ({ onConnected }) => {
 
   const handleConnection = useCallback(
     connection => {
-      // console.log("Other peer has connected!")
-
-      // This callback comes from the parent.
-      // It will show an "alert" component.
-      // @see src/pages/index.js
-      onConnected()
-
       connection.on("data", data => {
-        console.log("on data : the sender received confirmation.")
-        console.log(data)
+        setAlert("on data : the sender received confirmation.")
       })
 
       connection.on("error", handleConnectionError)

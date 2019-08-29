@@ -5,6 +5,7 @@ import Image from "../components/Image"
 import SEO from "../components/SEO"
 import MessageSend from "../components/MessageSend"
 import MessageReceive from "../components/MessageReceive"
+import Alert from "../components/Alert"
 
 import { AppContext } from "../App"
 
@@ -12,28 +13,21 @@ const IndexPage = () => {
   const context = useContext(AppContext)
   const currentRoute = new URLSearchParams(window.location.search)
   const id = currentRoute.get("id")
+  const [alertItem, setAlert] = useState({})
 
-  const [isConnected, setConnected] = useState(false)
-
-  const handleConnected = function() {
-    setConnected(true)
+  const handleAlert = function(msg, type) {
+    setAlert({ body: msg, type: type ? type : "default" })
   }
 
   return (
     <>
       <SEO title="Home" />
       {id ? (
-        <MessageReceive id={id} />
+        <MessageReceive id={id} setAlert={handleAlert} />
       ) : (
-        <MessageSend onConnected={handleConnected} />
+        <MessageSend setAlert={handleAlert} />
       )}
-
-      {isConnected && (
-        <>
-          <p>Peer is connected! (todo component stylish for alerts)</p>
-          <code>qsdqsd</code>
-        </>
-      )}
+      {alertItem.body && <Alert item={alertItem} />}
     </>
   )
 }
