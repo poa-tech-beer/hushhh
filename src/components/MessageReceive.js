@@ -30,7 +30,6 @@ const MessageReceive = ({ id, setAlert }) => {
     connection.on("open", () => {
       connection.send("I have received your message. Punk.")
       setMsgReceived(true)
-      setAlert("receiver has opened your message")
     })
 
     /**
@@ -39,14 +38,12 @@ const MessageReceive = ({ id, setAlert }) => {
      */
     connection.on("data", data => {
       setMsgContent(data)
+      setAlert("The sender is aware you have opened the message. 🕵")
     })
   }, [id])
 
   if (msgSenderIsNotified || msgContent.length) {
     let output = ""
-    if (msgSenderIsNotified) {
-      output = <p>{`The sender is aware you have opened the message. 🕵`}</p>
-    }
     if (msgContent.length) {
       output = (
         <div>

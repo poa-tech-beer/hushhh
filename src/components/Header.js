@@ -5,18 +5,29 @@ import React from "react"
 const Header = ({ siteTitle }) => (
   <header
     style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
+      // background: `rebeccapurple`,
+      position: `absolute`,
+      margin: "5px",
+      top: 0,
+      left: 0,
+      right: 0,
     }}
   >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
+    <nav>
+      <Link
+        to="/"
+        style={{
+          color: `white`,
+          textDecoration: `none`,
+        }}
+      >
+        {siteTitle}
+      </Link>
+      <div
+        style={{
+          float: "right",
+        }}
+      >
         <Link
           to="/"
           style={{
@@ -24,10 +35,19 @@ const Header = ({ siteTitle }) => (
             textDecoration: `none`,
           }}
         >
-          {siteTitle}
+          How it works? 💡
         </Link>
-      </h1>
-    </div>
+        <Link
+          to="/"
+          style={{
+            color: `white`,
+            textDecoration: `none`,
+          }}
+        >
+          About 👀
+        </Link>
+      </div>
+    </nav>
   </header>
 )
 

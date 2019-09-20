@@ -19,18 +19,31 @@ const MessageSend = ({ onConnected, setAlert }) => {
 
   const handleConnection = useCallback(
     connection => {
-      connection.on("data", data => {
-        setAlert("on data : the sender received confirmation.")
-      })
-
       connection.on("error", handleConnectionError)
-
       connection.on("open", () => {
         connection.send(formValues)
+      })
+      connection.on("data", data => {
+        setAlert("Receiver has opened your message.")
       })
     },
     [formValues, handleConnectionError, onConnected]
   )
+
+  const handleShare = useCallback(() => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Web Fundamentals",
+          text: "Check out Web Fundamentals — it rocks!",
+          url: "https://developers.google.com/web",
+        })
+        .then(() => console.log("Successful share"))
+        .catch(error => console.log("Error sharing", error))
+    } else {
+      console.log("navigator.share is undefined")
+    }
+  }, [])
 
   useEffect(() => {
     /**
@@ -49,40 +62,21 @@ const MessageSend = ({ onConnected, setAlert }) => {
   if (!isFormSubmit) {
     return (
       <div>
-        <h1>Send a message to your secret friend!</h1>
-        <p>
-          You will need to stay connected in order for the message to be sent
-          when your secret friend opens the secret link.
-        </p>
+        <h1>Sending messages privately</h1>
         <form
           onSubmit={e => {
             setFormSubmit(true)
             e.preventDefault()
           }}
         >
-          <p>Textarea to fill</p>
           <wired-textarea
-            style={{
-              display: `block`,
-              margin: `0 auto`,
-              maxWidth: 960,
-              padding: `1.45rem 1.0875rem`,
-            }}
+            id="wiredTextArea"
             onInput={e => {
               setFormState(e.currentTarget.value)
             }}
             value={formValues}
           />
-          <button
-            style={{
-              display: `block`,
-              margin: `0 auto`,
-              maxWidth: 360,
-              padding: `1.45rem 1.0875rem`,
-            }}
-          >
-            Enviar
-          </button>
+          <button id="sendButton" />
         </form>
       </div>
     )
@@ -104,6 +98,7 @@ const MessageSend = ({ onConnected, setAlert }) => {
           <a href={linkWhats} data-action="share/whatsapp/share">
             Whatsapp Link
           </a>
+          <button onClick={handleShare}>Share</button>
           <br />
           <br />
           <pre>{host}</pre>
