@@ -62,15 +62,19 @@ const MessageSend = ({ onConnected, setAlert }) => {
   if (!isFormSubmit) {
     return (
       <div>
-        <h1>Sending messages privately</h1>
+        <h1 class="textTitle">
+          Sending messages &nbsp;<u>really</u>&nbsp;privately!
+        </h1>
         <form
           onSubmit={e => {
             setFormSubmit(true)
             e.preventDefault()
           }}
         >
-          <wired-textarea
-            id="wiredTextArea"
+          <input
+            id="messageInput"
+            placeholder="Type your Secret Message✍️"
+            autoFocus
             onInput={e => {
               setFormState(e.currentTarget.value)
             }}
@@ -87,21 +91,18 @@ const MessageSend = ({ onConnected, setAlert }) => {
   // connection will happen.
   else {
     return (
-      <div>
-        <p style={{ fontSize: "2em" }}>
+      <div class="textTitle">
+        <p>
           Thank you for submitting your message.
           <br />
           Now send link below to friend then wait for your friend to open the
           message.
         </p>
         <div>
-          <a href={linkWhats} data-action="share/whatsapp/share">
-            Whatsapp Link
-          </a>
-          <button onClick={handleShare}>Share</button>
-          <br />
-          <br />
-          <pre>{host}</pre>
+          <div id="shareLink">
+            <span>{host}</span>
+            <button onClick={handleShare} />
+          </div>
         </div>
       </div>
     )
