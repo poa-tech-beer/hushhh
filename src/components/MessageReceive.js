@@ -48,7 +48,7 @@ const MessageReceive = ({ id, setAlert }) => {
     let output = ""
     if (msgContent.length) {
       output = (
-        <div class="textTitle">
+        <div className="textTitle">
           {output}
           <p>{msgContent}</p>
         </div>
@@ -56,7 +56,9 @@ const MessageReceive = ({ id, setAlert }) => {
     }
     return output
   } else {
-    return <p class="textTitle">{`You are opening message id = '${id}'...`}</p>
+    return (
+      <p className="textTitle">{`You are opening message id = '${id}'...`}</p>
+    )
   }
 }
 

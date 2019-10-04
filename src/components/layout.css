@@ -618,6 +618,11 @@ pre tt:after {
 
 @import url("https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap");
 
+header {
+  color: white;
+  text-decoration: none;
+}
+
 #sendButton {
   background-image: url(../images/send.png);
   height: 96px;
