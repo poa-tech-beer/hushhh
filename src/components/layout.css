@@ -625,8 +625,13 @@ header * {
   padding: 5px;
 }
 
+a:nth-child(2),
+a:nth-child(3) {
+  float: right;
+}
+
 #sendButton {
-  background-image: url(../images/send.png);
+  background-image: url(../images/send.svg);
   height: 96px;
   width: 96px;
   background-repeat: no-repeat;
@@ -686,7 +691,7 @@ div#shareLink {
 }
 
 div#shareLink button {
-  background-image: url(../images/copy.png);
+  background-image: url(../images/copy.svg);
   height: 96px;
   width: 96px;
   background-repeat: no-repeat;

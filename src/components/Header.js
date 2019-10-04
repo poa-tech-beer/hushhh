@@ -5,23 +5,9 @@ import React from "react"
 const Header = ({ siteTitle }) => (
   <header>
     <nav>
-      <Link
-        to="/"
-        style={{
-          color: `white`,
-          textDecoration: `none`,
-        }}
-      >
-        {siteTitle}
-      </Link>
-      <div
-        style={{
-          float: "right",
-        }}
-      >
-        <Link to="/">How it works? 💡</Link>
-        <Link to="/">About 👀</Link>
-      </div>
+      <Link to="/">{siteTitle}</Link>
+      <Link to="/">How it works? 💡</Link>
+      <Link to="/">About 👀</Link>
     </nav>
   </header>
 )

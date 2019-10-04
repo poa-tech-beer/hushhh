@@ -20,23 +20,24 @@ const Alert = ({ item }) => {
         damping: 20,
       }}
       style={{
-        position: `fixed`,
-        // top: `3vh`,
+        position: "fixed",
+        top: "-100%",
         right: 0,
         left: 0,
+        opacity: 0,
       }}
     >
       <p
         style={{
-          margin: `0 auto`,
-          fontSize: `1.75em`,
-          maxWidth: `24em`,
-          background: `#0085FF`,
-          borderRadius: `9px`,
-          padding: `1em`,
-          textAlign: `center`,
-          display: `flex`,
-          justifyContent: `space-between`,
+          margin: "0 auto",
+          fontSize: "1.75em",
+          maxWidth: "24em",
+          background: "#0085FF",
+          borderRadius: "9px",
+          padding: "1em",
+          textAlign: "center",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <span>{item.body}</span>
@@ -45,11 +46,11 @@ const Alert = ({ item }) => {
           whileHover={{ color: "black" }}
           whileTap={{ scale: 0.9 }}
           style={{
-            background: `transparent`,
-            border: `0 none`,
-            borderRadius: `100%`,
-            color: `white`,
-            cursor: `pointer`,
+            background: "transparent",
+            border: "0 none",
+            borderRadius: "100%",
+            color: "white",
+            cursor: "pointer",
           }}
         >
           <svg width="23" height="23" viewBox="0 0 23 23">
