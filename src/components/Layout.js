@@ -13,11 +13,10 @@ import "./layout.css"
 const Layout = ({ children }) => (
   <div
     style={{
-      display: `flex`,
+      display: `block`,
       alignItems: `center`,
       justifyContent: `center`,
       minHeight: `100vh`,
-      position: `relative`,
       backgroundColor: `#0C101E`,
       color: `white`,
     }}

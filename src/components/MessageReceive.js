@@ -3,6 +3,8 @@ import { Link } from "gatsby"
 import React, { useState, useEffect } from "react"
 import { WiredTextarea } from "wired-elements"
 import { peer } from "../services/p2p"
+import Layout from "./Layout"
+import "./layout.css"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
@@ -46,7 +48,7 @@ const MessageReceive = ({ id, setAlert }) => {
     let output = ""
     if (msgContent.length) {
       output = (
-        <div>
+        <div class="textTitle">
           {output}
           <p>{msgContent}</p>
         </div>
@@ -54,7 +56,7 @@ const MessageReceive = ({ id, setAlert }) => {
     }
     return output
   } else {
-    return <p>{`You are opening message id = '${id}'...`}</p>
+    return <p class="textTitle">{`You are opening message id = '${id}'...`}</p>
   }
 }
 
