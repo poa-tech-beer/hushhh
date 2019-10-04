@@ -634,15 +634,12 @@ a:nth-child(3) {
   background-image: url(../images/send.svg);
   height: 96px;
   width: 96px;
-  background-repeat: no-repeat;
   border: none;
   cursor: pointer;
-  overflow: hidden;
   outline: none;
   position: absolute;
   border-radius: 48px;
-  left: 46.32%;
-  right: 47.02%;
+  left: 50%;
   top: 60%;
 }
 

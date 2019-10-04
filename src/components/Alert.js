@@ -48,9 +48,9 @@ const Alert = ({ item }) => {
           style={{
             background: "transparent",
             border: "0 none",
-            borderRadius: "100%",
             color: "white",
             cursor: "pointer",
+            transition: "color .25s",
           }}
         >
           <svg width="23" height="23" viewBox="0 0 23 23">
