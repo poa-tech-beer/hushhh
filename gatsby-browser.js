@@ -3,7 +3,10 @@
  *
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
-import React from 'react'
-import App from './src/App'
+import App from "./src/App"
+
+import(
+  /* webpackChunkName: "share-api-polyfill", webpackPrefetch: true */ `share-api-polyfill`
+)
 
 export const wrapRootElement = App

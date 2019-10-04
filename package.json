@@ -20,6 +20,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "share-api-polyfill": "^1.0.11",
     "typeface-nanum-pen-script": "0.0.63",
     "wired-elements": "^1.0.0"
   },
