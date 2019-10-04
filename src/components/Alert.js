@@ -4,15 +4,22 @@ const Alert = ({ item }) => (
   <div
     style={{
       position: `fixed`,
+      top: `3vh`,
       right: 0,
-      bottom: 0,
       left: 0,
-      backgroundColor: `rgba(255,255,255,0.3)`,
-      padding: `1em`,
-      textAlign: `center`,
     }}
   >
-    <p style={{ display: `inline-block`, fontSize: `2em`, maxWidth: `33em` }}>
+    <p
+      style={{
+        margin: `0 auto`,
+        fontSize: `1.75em`,
+        maxWidth: `24em`,
+        background: `#0085FF`,
+        borderRadius: `9px`,
+        padding: `1em`,
+        textAlign: `center`,
+      }}
+    >
       {item.body}
     </p>
   </div>

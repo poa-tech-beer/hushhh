@@ -62,7 +62,7 @@ const MessageSend = ({ onConnected, setAlert }) => {
   if (!isFormSubmit) {
     return (
       <div>
-        <h1 class="textTitle">
+        <h1 className="textTitle">
           Sending messages &nbsp;<u>really</u>&nbsp;privately!
         </h1>
         <form
@@ -91,7 +91,7 @@ const MessageSend = ({ onConnected, setAlert }) => {
   // connection will happen.
   else {
     return (
-      <div class="textTitle">
+      <div className="textTitle">
         <p>
           Thank you for submitting your message.
           <br />

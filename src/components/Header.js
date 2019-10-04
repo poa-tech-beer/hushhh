@@ -14,15 +14,7 @@ const Header = ({ siteTitle }) => (
     }}
   >
     <nav>
-      <Link
-        to="/"
-        style={{
-          color: `white`,
-          textDecoration: `none`,
-        }}
-      >
-        {siteTitle}
-      </Link>
+      <Link to="/">{siteTitle}</Link>
       <div
         style={{
           float: "right",
