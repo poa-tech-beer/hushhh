@@ -616,21 +616,30 @@ pre tt:after {
   }
 }
 
-@import url("https://fonts.googleapis.com/css?family=Nanum+Pen+Script&display=swap");
+header * {
+  color: white;
+  text-decoration: none;
+  /* background: `rebeccapurple`; */
+  position: "absolute";
+  margin: 5px;
+  padding: 5px;
+}
+
+a:nth-child(2),
+a:nth-child(3) {
+  float: right;
+}
 
 #sendButton {
-  background-image: url(../images/send.png);
+  background-image: url(../images/send.svg);
   height: 96px;
   width: 96px;
-  background-repeat: no-repeat;
   border: none;
   cursor: pointer;
-  overflow: hidden;
   outline: none;
   position: absolute;
   border-radius: 48px;
-  left: 46.32%;
-  right: 47.02%;
+  left: 50%;
   top: 60%;
 }
 
@@ -679,7 +688,7 @@ div#shareLink {
 }
 
 div#shareLink button {
-  background-image: url(../images/copy.png);
+  background-image: url(../images/copy.svg);
   height: 96px;
   width: 96px;
   background-repeat: no-repeat;
