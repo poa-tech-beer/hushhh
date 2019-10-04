@@ -27,23 +27,23 @@ const MessageSend = ({ onConnected, setAlert }) => {
         setAlert("Receiver has opened your message.")
       })
     },
-    [formValues, handleConnectionError, onConnected]
+    [formValues, handleConnectionError, setAlert]
   )
 
   const handleShare = useCallback(() => {
     if (navigator.share) {
       navigator
         .share({
-          title: "Web Fundamentals",
-          text: "Check out Web Fundamentals — it rocks!",
-          url: "https://developers.google.com/web",
+          title: document.title,
+          text: "I just sent you a secret message on hushhh.app!",
+          url: host,
         })
         .then(() => console.log("Successful share"))
         .catch(error => console.log("Error sharing", error))
     } else {
       console.log("navigator.share is undefined")
     }
-  }, [])
+  }, [host])
 
   useEffect(() => {
     /**
