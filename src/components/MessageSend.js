@@ -12,7 +12,6 @@ const MessageSend = ({ onConnected, setAlert }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const host = `${window.location.href}?id=${peer.id}`
-  const linkWhats = `https://wa.me/?text=${host}`
 
   // Add errors event listeners
   const handleConnectionError = useCallback(err => console.log(err), [])
