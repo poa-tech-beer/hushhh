@@ -3,16 +3,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      // background: `rebeccapurple`,
-      position: `absolute`,
-      margin: "5px",
-      top: 0,
-      left: 0,
-      right: 0,
-    }}
-  >
+  <header>
     <nav>
       <Link
         to="/"
@@ -28,24 +19,8 @@ const Header = ({ siteTitle }) => (
           float: "right",
         }}
       >
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          How it works? 💡
-        </Link>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          About 👀
-        </Link>
+        <Link to="/">How it works? 💡</Link>
+        <Link to="/">About 👀</Link>
       </div>
     </nav>
   </header>
