@@ -3,9 +3,11 @@ import Peer from "peerjs"
 // See https://github.com/peers/peerjs
 // See https://github.com/jmcker/Peer-to-Peer-Cue-System/blob/master/send.html
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
-export const peer = new Peer(null, {
-  debug: 2,
-})
+export const peer =
+  typeof window !== "undefined" &&
+  new Peer(null, {
+    debug: 2,
+  })
 
 var lastPeerId = null
 

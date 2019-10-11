@@ -8,10 +8,10 @@ import { peer } from "../services/p2p"
  *
  * @see src/pages/index.js
  */
-const MessageSend = ({ onConnected, setAlert }) => {
+const MessageSend = ({ location, onConnected, setAlert }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
-  const host = `${window.location.href}?id=${peer.id}`
+  const host = `${location.href}?id=${peer.id}`
 
   // Add errors event listeners
   const handleConnectionError = useCallback(err => console.log(err), [])

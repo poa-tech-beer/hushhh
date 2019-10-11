@@ -6,8 +6,8 @@ const Header = ({ siteTitle }) => (
   <header>
     <nav>
       <Link to="/">{siteTitle}</Link>
-      <Link to="/">How it works? 💡</Link>
-      <Link to="/">About 👀</Link>
+      <Link to="/how-it-works">How it works? 💡</Link>
+      <Link to="/about">About 👀</Link>
     </nav>
   </header>
 )
