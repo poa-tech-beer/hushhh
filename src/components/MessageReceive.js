@@ -1,7 +1,6 @@
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import React, { useState, useEffect } from "react"
-import { WiredTextarea } from "wired-elements"
 import { peer } from "../services/p2p"
 import Layout from "./Layout"
 import "./layout.css"
@@ -42,7 +41,7 @@ const MessageReceive = ({ id, setAlert }) => {
       setMsgContent(data)
       setAlert("The sender is aware you have opened the message. 🕵")
     })
-  }, [id])
+  }, [id, setAlert])
 
   if (msgSenderIsNotified || msgContent.length) {
     let output = ""

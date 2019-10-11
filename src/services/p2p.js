@@ -1,52 +1,55 @@
-import Peer from "peerjs"
+// // See https://github.com/peers/peerjs
+// // See https://github.com/jmcker/Peer-to-Peer-Cue-System/blob/master/send.html
+// // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
-// See https://github.com/peers/peerjs
-// See https://github.com/jmcker/Peer-to-Peer-Cue-System/blob/master/send.html
-// See https://github.com/peers/peerjs/blob/master/examples/index.jsx
-export const peer =
-  typeof window !== "undefined" &&
-  new Peer(null, {
+export const getPeer = async () => {
+  const Peer = await import(/* webpackChunkName: "peerjs" */ `peerjs`).then(
+    module => module.default
+  )
+
+  return new Peer(null, {
     debug: 2,
   })
+}
 
-var lastPeerId = null
+// var lastPeerId = null
 
-/**
- * Connected event handler.
- */
-peer.on("open", function(id) {
-  // Workaround for peer.reconnect deleting previous id
-  if (peer.id === null) {
-    console.log("Received null id from peer open")
-    peer.id = lastPeerId
-  } else {
-    lastPeerId = peer.id
-  }
-  console.log("ID: " + peer.id)
-})
+// /**
+//  * Connected event handler.
+//  */
+// peer.on("open", function(id) {
+//   // Workaround for peer.reconnect deleting previous id
+//   if (peer.id === null) {
+//     console.log("Received null id from peer open")
+//     peer.id = lastPeerId
+//   } else {
+//     lastPeerId = peer.id
+//   }
+//   console.log("ID: " + peer.id)
+// })
 
-/**
- * Disconnected event handler.
- */
-peer.on("disconnected", function() {
-  console.log("Connection lost. Please reconnect")
-  // Workaround for peer.reconnect deleting previous id
-  peer.id = lastPeerId
-  peer._lastServerId = lastPeerId
-  peer.reconnect()
-})
+// /**
+//  * Disconnected event handler.
+//  */
+// peer.on("disconnected", function() {
+//   console.log("Connection lost. Please reconnect")
+//   // Workaround for peer.reconnect deleting previous id
+//   peer.id = lastPeerId
+//   peer._lastServerId = lastPeerId
+//   peer.reconnect()
+// })
 
-/**
- * Closed (destroyed) connexion.
- */
-peer.on("close", function() {
-  console.log("Connection destroyed")
-})
+// /**
+//  * Closed (destroyed) connexion.
+//  */
+// peer.on("close", function() {
+//   console.log("Connection destroyed")
+// })
 
-/**
- * Error event handler.
- */
-peer.on("error", function(err) {
-  console.log(err)
-  alert("" + err)
-})
+// /**
+//  * Error event handler.
+//  */
+// peer.on("error", function(err) {
+//   console.log(err)
+//   alert("" + err)
+// })

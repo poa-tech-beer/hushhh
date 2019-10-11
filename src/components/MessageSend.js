@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react"
-import { peer } from "../services/p2p"
+import React, { useState, useEffect, useCallback, useRef } from "react"
+import { getPeer } from "../services/p2p"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
@@ -8,10 +8,11 @@ import { peer } from "../services/p2p"
  *
  * @see src/pages/index.js
  */
-const MessageSend = ({ location, onConnected, setAlert }) => {
+const MessageSend = ({ onConnected, setAlert, location }) => {
+  let peer = useRef(null)
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
-  const host = `${location.href}?id=${peer.id}`
+  const host = peer.current && `${location.href}?id=${peer.current.id}`
 
   // Add errors event listeners
   const handleConnectionError = useCallback(err => console.log(err), [])
@@ -50,10 +51,16 @@ const MessageSend = ({ location, onConnected, setAlert }) => {
      *
      * (so, keep window open, for heaven's sake)
      */
-    peer.on("connection", handleConnection)
+    const startPeer = async () => {
+      peer.current = await getPeer()
+
+      peer.current.on("connection", handleConnection)
+    }
+
+    if (!peer.current) startPeer()
 
     return () => {
-      peer.off("connection", handleConnection)
+      peer && peer.current.off("connection", handleConnection)
     }
   }, [handleConnection])
 

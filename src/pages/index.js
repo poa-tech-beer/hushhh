@@ -22,13 +22,11 @@ const IndexPage = ({ location }) => {
   return (
     <>
       <SEO title="Home" />
-      {typeof window !== "undefined" ? (
-        id ? (
-          <MessageReceive location={location} id={id} setAlert={handleAlert} />
-        ) : (
-          <MessageSend location={location} setAlert={handleAlert} />
-        )
-      ) : null}
+      {id ? (
+        <MessageReceive id={id} setAlert={handleAlert} />
+      ) : (
+        <MessageSend setAlert={handleAlert} location={location} />
+      )}
       {alertItem.body && <Alert item={alertItem} />}
     </>
   )
