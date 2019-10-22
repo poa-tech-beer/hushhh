@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { getPeer } from "../services/p2p"
+import { SendButton, CopyButton, Title, ShareButton, ShareText } from "./style"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
@@ -68,9 +69,9 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   if (!isFormSubmit) {
     return (
       <div>
-        <h1 className="textTitle">
+        <Title>
           Sending messages &nbsp;<u>really</u>&nbsp;privately!
-        </h1>
+        </Title>
         <form
           onSubmit={e => {
             setFormSubmit(true)
@@ -86,7 +87,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             }}
             value={formValues}
           />
-          <button id="sendButton" />
+          <SendButton />
         </form>
       </div>
     )
@@ -97,20 +98,18 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <div className="textTitle">
-        <p>
-          Thank you for submitting your message.
+      <Title>
+        Thank you for submitting your message.
+        <br />
+        Now send link below to friend then wait for your friend to open the
+        message.
+        <ShareText>
           <br />
-          Now send link below to friend then wait for your friend to open the
-          message.
-        </p>
-        <div>
-          <div id="shareLink">
-            <span>{host}</span>
-            <button onClick={handleShare} />
-          </div>
-        </div>
-      </div>
+          <span>{host}</span>
+          <CopyButton onClick={handleShare} />
+        </ShareText>
+        <ShareButton onClick={handleShare} />
+      </Title>
     )
   }
 }

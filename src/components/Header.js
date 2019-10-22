@@ -6,8 +6,12 @@ const Header = ({ siteTitle }) => (
   <header>
     <nav>
       <Link to="/">{siteTitle}</Link>
-      <Link to="/how-it-works">How it works? 💡</Link>
-      <Link to="/about">About 👀</Link>
+      <Link to="/how-it-works" className="flex-end">
+        How it works? 💡
+      </Link>
+      <Link to="/about" className="flex-end">
+        About 👀
+      </Link>
     </nav>
   </header>
 )

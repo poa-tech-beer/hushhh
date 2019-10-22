@@ -8,19 +8,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Header from "./Header"
-import "./layout.css"
+// import "./layout.css"
 
 const Layout = ({ children }) => (
-  <div
-    style={{
-      display: `block`,
-      alignItems: `center`,
-      justifyContent: `center`,
-      minHeight: `100vh`,
-      backgroundColor: `#0C101E`,
-      color: `white`,
-    }}
-  >
+  <div>
     <Header siteTitle="POA tech beer secret message app" />
     <main>{children}</main>
   </div>

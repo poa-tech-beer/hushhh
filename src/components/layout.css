@@ -1,42 +1,49 @@
 html {
   background-color: #0c101e;
+  color: white;
 }
 
 body {
   font-family: "Nanum Pen Script", cursive;
 }
 
-@media only screen and (max-width: 480px) {
+@media (max-width: 1000px) {
   html {
-    font-size: 100%;
+    font-size: 70% !important;
+  }
+
+  input::placeholder {
+    font-size: 24px !important;
+    color: red;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
+  */ input::placeholder {
+    font-size: 16px !important;
+    color: red;
   }
 }
 
 header * {
+  display: flex;
   color: white;
   text-decoration: none;
-  /* background: `rebeccapurple`; */
-  position: "absolute";
   margin: 5px;
   padding: 5px;
 }
 
-a:nth-child(2),
-a:nth-child(3) {
-  float: right;
+nav::after {
+  content: "";
+  flex-grow: 1;
+  order: 0;
 }
 
-#sendButton {
-  background-image: url(../images/send.svg);
-  height: 96px;
-  width: 96px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  position: absolute;
-  border-radius: 48px;
-  left: 50%;
-  top: 60%;
+a.flex-end {
+  order: 1;
 }
 
 input#messageInput {
@@ -55,44 +62,11 @@ input#messageInput {
 
 input::placeholder {
   color: gray;
-  font-size: 48px;
+  font-size: 36px;
   text-align: center;
   width: 100%;
 }
 
 input:focus {
   outline: none;
-}
-
-.textTitle {
-  position: absolute;
-  left: 17.96%;
-  right: 17.96%;
-  top: 13%;
-  font-family: "Nanum Pen Script";
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.5em;
-  line-height: 45px;
-  text-align: center;
-}
-
-div#shareLink {
-  display: inline-flex;
-  text-decoration: underline white;
-  font-size: 2em;
-}
-
-div#shareLink button {
-  background-image: url(../images/copy.svg);
-  height: 96px;
-  width: 96px;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  outline: none;
-  background-color: inherit;
-  flex-shrink: 0;
-  margin: 3% 3%;
 }
