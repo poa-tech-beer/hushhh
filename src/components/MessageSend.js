@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import { getPeer } from "../services/p2p"
-import { SendButton, CopyButton, Title, ShareButton, ShareText } from "./style"
+import {
+  SendButton,
+  CopyButton,
+  Title,
+  ShareButton,
+  ShareText,
+  MessageInput,
+} from "./style"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
@@ -12,12 +19,29 @@ import { SendButton, CopyButton, Title, ShareButton, ShareText } from "./style"
 const MessageSend = ({ onConnected, setAlert, location }) => {
   let peer = useRef(null)
   let connection = useRef(null)
-  let handleConnection
 
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const host = peer.current && `${location.href}?id=${peer.current.id}`
-  console.log(formValues)
+
+  // Add errors event listeners
+  const handleConnectionError = err => console.log(err)
+  const handleOpen = () => {
+    console.log("send")
+    console.log(formValues)
+    connection.current.send(formValues)
+  }
+  const handleData = data => {
+    setAlert("Receiver has opened your message.")
+  }
+
+  const handleConnection = _connection => {
+    _connection.on("error", handleConnectionError)
+    _connection.on("open", handleOpen)
+    _connection.on("data", handleData)
+
+    connection.current = _connection
+  }
 
   const handleShare = useCallback(() => {
     if (navigator.share) {
@@ -42,37 +66,18 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
      */
 
     if (!peer.current) {
-      // Add errors event listeners
-      const handleConnectionError = err => console.log(err)
-      const handleOpen = () => {
-        console.log("send")
-        console.log(formValues)
-        connection.current.send(formValues)
-      }
-      const handleData = data => {
-        setAlert("Receiver has opened your message.")
-      }
-
-      handleConnection = _connection => {
-        _connection.on("error", handleConnectionError)
-        _connection.on("open", handleOpen)
-        _connection.on("data", handleData)
-
-        connection.current = _connection
-      }
-
       const startPeer = async () => {
         peer.current = await getPeer()
-        console.log("start")
-        peer.current.on("connection", handleConnection)
       }
 
       startPeer()
     }
 
+    peer.current && peer.current.on("connection", handleConnection)
+
     return () => {
       console.log("off")
-      peer && peer.current.off("connection", handleConnection)
+      peer.current && peer.current.off("connection", handleConnection)
     }
   }, [formValues])
 

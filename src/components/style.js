@@ -52,7 +52,7 @@ const ShareText = styled.h2`
   align-items: center;
 `
 
-const MessageInput = styled.form`
+const MessageInput = styled.input`
   box-sizing: border-box;
   width: 100%;
   position: absolute;
