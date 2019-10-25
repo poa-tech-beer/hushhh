@@ -17,16 +17,18 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
 
   // Add errors event listeners
   const handleConnectionError = useCallback(err => console.log(err), [])
+  const handleOpen = useCallback(() => {
+    connection.send(formValues)
+  }, [])
+  const handleData = useCallback(data => {
+    setAlert("Receiver has opened your message.")
+  }, [])
 
   const handleConnection = useCallback(
     connection => {
       connection.on("error", handleConnectionError)
-      connection.on("open", () => {
-        connection.send(formValues)
-      })
-      connection.on("data", data => {
-        setAlert("Receiver has opened your message.")
-      })
+      connection.on("open", handleOpen)
+      connection.on("data", handleData)
     },
     [formValues, handleConnectionError, setAlert]
   )

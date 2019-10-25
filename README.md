@@ -5,6 +5,8 @@
 1. Minimal sketch (UX + design) - copy to clipboard, etc.
 1. Files (photos) transfer
 1. Make 100% serverless (ditch PeerJS) or host own PeerJS server
+1. Géolocalisation(?)
+1. Encryption (?)
 
 ## Step by Step : how it works
 
