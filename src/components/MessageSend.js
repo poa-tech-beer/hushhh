@@ -19,23 +19,25 @@ import {
 const MessageSend = ({ onConnected, setAlert, location }) => {
   let peer = useRef(null)
   let connection = useRef(null)
+  let formValuesRef = useRef(null)
 
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const host = peer.current && `${location.href}?id=${peer.current.id}`
 
+  formValuesRef.current = formValues
+
   // Add errors event listeners
   const handleConnectionError = err => console.log(err)
-  const handleOpen = () => {
-    console.log("send")
-    console.log(formValues)
-    connection.current.send(formValues)
-  }
+  const handleOpen = useCallback(() => {
+    connection.current.send(formValuesRef.current)
+  }, [])
   const handleData = data => {
     setAlert("Receiver has opened your message.")
   }
 
   const handleConnection = _connection => {
+    console.log("handle connection")
     _connection.on("error", handleConnectionError)
     _connection.on("open", handleOpen)
     _connection.on("data", handleData)
@@ -64,22 +66,21 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
      *
      * (so, keep window open, for heaven's sake)
      */
-
     if (!peer.current) {
       const startPeer = async () => {
         peer.current = await getPeer()
+
+        peer.current.on("connection", handleConnection)
       }
 
       startPeer()
     }
 
-    peer.current && peer.current.on("connection", handleConnection)
-
     return () => {
       console.log("off")
       peer.current && peer.current.off("connection", handleConnection)
     }
-  }, [formValues])
+  }, [])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
