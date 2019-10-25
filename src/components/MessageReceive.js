@@ -24,6 +24,7 @@ const MessageReceive = ({ id, setAlert }) => {
      * Make using peerjs async (workaround Gatsby build error).
      */
     const startPeer = async () => {
+      console.log("start peer")
       peer.current = await getPeer()
 
       // When the user reaches this page, the sender is already waiting on the other
@@ -61,6 +62,7 @@ const MessageReceive = ({ id, setAlert }) => {
     return () => {
       peer.current.off("data", handleData)
       peer.current.off("open", handleOpen)
+      console.log("off")
     }
   }, [id, setAlert])
 

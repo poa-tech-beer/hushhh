@@ -41,7 +41,7 @@ const Title = styled.h1`
   font-weight: normal;
   font-size: 1.5em;
   text-align: center;
-  margin-top: 10vw;
+  margin-top: 10vh;
 `
 
 const ShareText = styled.h2`
@@ -52,4 +52,19 @@ const ShareText = styled.h2`
   align-items: center;
 `
 
-export { SendButton, CopyButton, ShareButton, Title, ShareText }
+const MessageInput = styled.form`
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
+  top: 35%;
+  font-family: "Nanum Pen Script";
+  background-color: inherit;
+  border: none;
+  padding-left: 30%;
+  padding-right: 30%;
+  color: white;
+  font-size: 48px;
+  height: 25%;
+`
+
+export { SendButton, CopyButton, ShareButton, Title, ShareText, MessageInput }

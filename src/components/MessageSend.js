@@ -11,27 +11,13 @@ import { SendButton, CopyButton, Title, ShareButton, ShareText } from "./style"
  */
 const MessageSend = ({ onConnected, setAlert, location }) => {
   let peer = useRef(null)
+  let connection = useRef(null)
+  let handleConnection
+
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const host = peer.current && `${location.href}?id=${peer.current.id}`
-
-  // Add errors event listeners
-  const handleConnectionError = useCallback(err => console.log(err), [])
-  const handleOpen = useCallback(() => {
-    connection.send(formValues)
-  }, [])
-  const handleData = useCallback(data => {
-    setAlert("Receiver has opened your message.")
-  }, [])
-
-  const handleConnection = useCallback(
-    connection => {
-      connection.on("error", handleConnectionError)
-      connection.on("open", handleOpen)
-      connection.on("data", handleData)
-    },
-    [formValues, handleConnectionError, setAlert]
-  )
+  console.log(formValues)
 
   const handleShare = useCallback(() => {
     if (navigator.share) {
@@ -54,18 +40,41 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
      *
      * (so, keep window open, for heaven's sake)
      */
-    const startPeer = async () => {
-      peer.current = await getPeer()
 
-      peer.current.on("connection", handleConnection)
+    if (!peer.current) {
+      // Add errors event listeners
+      const handleConnectionError = err => console.log(err)
+      const handleOpen = () => {
+        console.log("send")
+        console.log(formValues)
+        connection.current.send(formValues)
+      }
+      const handleData = data => {
+        setAlert("Receiver has opened your message.")
+      }
+
+      handleConnection = _connection => {
+        _connection.on("error", handleConnectionError)
+        _connection.on("open", handleOpen)
+        _connection.on("data", handleData)
+
+        connection.current = _connection
+      }
+
+      const startPeer = async () => {
+        peer.current = await getPeer()
+        console.log("start")
+        peer.current.on("connection", handleConnection)
+      }
+
+      startPeer()
     }
-
-    if (!peer.current) startPeer()
 
     return () => {
+      console.log("off")
       peer && peer.current.off("connection", handleConnection)
     }
-  }, [handleConnection])
+  }, [formValues])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {

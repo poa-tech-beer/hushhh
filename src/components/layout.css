@@ -58,11 +58,12 @@ input#messageInput {
   padding-right: 30%;
   color: white;
   font-size: 48px;
+  height: 25%;
 }
 
 input::placeholder {
   color: gray;
-  font-size: 36px;
+  font-size: 1.8em;
   text-align: center;
   width: 100%;
 }
