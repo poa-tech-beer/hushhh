@@ -1,70 +1,76 @@
-import styled from "styled-components"
-import imgSend from "../images/send.svg"
-import imgCopy from "../images/copy.svg"
-import imgShare from "../images/share.svg"
+import styled, { createGlobalStyle } from "styled-components"
+import { Link } from "gatsby"
 
-const Button = styled.button`
-  display: block;
-  height: 96px;
-  width: 96px;
-  border: none;
-  cursor: pointer;
-  outline: none;
-  overflow: hidden;
-  position: absolute;
-  margin-left: -48px;
-  background-repeat: no-repeat;
-  background-color: inherit;
-`
-const SendButton = styled(Button)`
-  background-image: url(${imgSend});
-  border-radius: 48px;
-  left: 50%;
-  top: 60%;
-`
-const CopyButton = styled(Button)`
-  background-image: url(${imgCopy});
-  display: flex;
-  position: inherit;
-  margin-left: 10px;
+const GlobalStyle = createGlobalStyle`
+  html,
+  body {
+    background-color: #0c101e;
+    color: white;
+    font-family: "Nanum Pen Script", cursive;
+    font-size: calc(0.75rem + 1.1vw);
+  }
+
+  @media (min-width: 75rem) {
+    html,
+    body {
+      font-size: 1.55rem;
+    }
+  }
+
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    color: #0085ff;
+  }
+
+  input::placeholder {
+    font-size: inherit;
+    /* color: red; */
+  }
+
+  input:focus {
+    outline: none;
+  }
 `
 
-const ShareButton = styled(Button)`
-  position: fixed;
-  background-image: url(${imgShare});
-  bottom: 15%;
-  left: 50%;
+const LinkNotUnderlined = styled(Link)`
+  text-decoration: none;
 `
+
 const Title = styled.h1`
   font-family: "Nanum Pen Script";
   font-style: normal;
   font-weight: normal;
-  font-size: 1.5em;
+  font-size: 150%;
   text-align: center;
   margin-top: 10vh;
 `
 
-const ShareText = styled.h2`
-  display: flex;
-  text-decoration: underline white;
-  font-size: 1.5em;
-  justify-content: center;
-  align-items: center;
+const FormContainer = styled.div`
+  background-color: #0c101e;
+
+  &:focus-within {
+    background-color: #060a17;
+  }
 `
 
-const MessageInput = styled.input`
-  box-sizing: border-box;
-  width: 100%;
-  position: absolute;
-  top: 35%;
-  font-family: "Nanum Pen Script";
-  background-color: inherit;
+const CircleButton = styled.button`
+  display: block;
+  // height: 96px;
+  // width: 96px;
   border: none;
-  padding-left: 30%;
-  padding-right: 30%;
-  color: white;
-  font-size: 48px;
-  height: 25%;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  // margin-left: -48px;
+  background-repeat: no-repeat;
+  background-color: inherit;
+
+  &:hover {
+    background-color: #0085ff;
+  }
 `
 
-export { SendButton, CopyButton, ShareButton, Title, ShareText, MessageInput }
+export { CircleButton, GlobalStyle, Title, LinkNotUnderlined, FormContainer }

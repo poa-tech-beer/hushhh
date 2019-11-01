@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import React, { useState, useEffect, useRef } from "react"
 import { getPeer } from "../services/p2p"
 import Layout from "./Layout"
-import "./layout.css"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 

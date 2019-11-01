@@ -21,7 +21,7 @@ const IndexPage = ({ location }) => {
 
   return (
     <>
-      <SEO title="Home" />
+      <SEO title="Hushhh" />
       {id ? (
         <MessageReceive id={id} setAlert={handleAlert} />
       ) : (

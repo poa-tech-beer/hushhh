@@ -8,11 +8,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Header from "./Header"
-// import "./layout.css"
 
 const Layout = ({ children }) => (
   <div>
-    <Header siteTitle="POA tech beer secret message app" />
+    <Header siteTitle="Hushhh" />
     <main>{children}</main>
   </div>
 )

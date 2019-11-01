@@ -1,13 +1,51 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
+import styled from "styled-components"
 import { getPeer } from "../services/p2p"
-import {
-  SendButton,
-  CopyButton,
-  Title,
-  ShareButton,
-  ShareText,
-  MessageInput,
-} from "./style"
+
+import { ReactComponent as SendButtonIcon } from "../images/send.svg"
+import { ReactComponent as ShareButtonIcon } from "../images/share.svg"
+import { ReactComponent as CopyButtonIcon } from "../images/copy.svg"
+
+import TextareaAutosize from "react-textarea-autosize"
+
+import { Title, FormContainer, CircleButton } from "./style"
+
+const MessageInput = styled(TextareaAutosize)`
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 36rem;
+  background-color: inherit;
+  border: 0 none;
+  color: white;
+  height: 25%;
+`
+
+const SendButton = styled(CircleButton)`
+  display: block;
+  border-radius: 48px;
+  margin: 0.618rem auto;
+`
+
+const CopyButton = styled(CircleButton)`
+  display: flex;
+  position: inherit;
+  margin-left: 10px;
+`
+
+const ShareButton = styled(CircleButton)`
+  position: fixed;
+  bottom: 15%;
+  left: 50%;
+`
+
+const ShareText = styled.h2`
+  display: flex;
+  text-decoration: underline white;
+  font-size: 115%;
+  justify-content: center;
+  align-items: center;
+`
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
@@ -37,7 +75,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   }
 
   const handleConnection = _connection => {
-    console.log("handle connection")
     _connection.on("error", handleConnectionError)
     _connection.on("open", handleOpen)
     _connection.on("data", handleData)
@@ -77,7 +114,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     }
 
     return () => {
-      console.log("off")
       peer.current && peer.current.off("connection", handleConnection)
     }
   }, [])
@@ -89,14 +125,14 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
         <Title>
           Sending messages &nbsp;<u>really</u>&nbsp;privately!
         </Title>
+        <FormContainer />
         <form
           onSubmit={e => {
             setFormSubmit(true)
             e.preventDefault()
           }}
         >
-          <input
-            id="messageInput"
+          <MessageInput
             placeholder="Type your Secret Message✍️"
             autoFocus
             onInput={e => {
@@ -104,7 +140,9 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             }}
             value={formValues}
           />
-          <SendButton />
+          <SendButton>
+            <SendButtonIcon />
+          </SendButton>
         </form>
       </div>
     )

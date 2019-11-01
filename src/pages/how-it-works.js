@@ -1,13 +1,31 @@
 import React from "react"
 import { Link } from "gatsby"
-
 import SEO from "../components/SEO"
+import { Title } from "../components/style"
 
 const HowItWorks = () => (
   <>
-    <SEO title="How it works" />
-    <h1>How it work</h1>
-    <Link to="/">Go back to the homepage</Link>
+    <div style={{ textAlign: "center" }}>
+      <SEO title="How it works" />
+      <Title>How it works 💡</Title>
+    </div>
+    <div style={{ margin: "0 auto", maxWidth: "36rem" }}>
+      <ol>
+        <li>
+          Sender opens the index page, writes a message, and submits the form.
+        </li>
+        <li>Sends the generated link to recipient (e.g. via WhatsApp, etc).</li>
+        <li>Keeps the page open until recipient sees the message</li>
+        <li>Recipient opens link</li>
+        <li>
+          A peer to peer connection occurs, and the message is sent directly
+          from the sender's device to the recipient's. 🎉
+        </li>
+      </ol>
+      <div style={{ textAlign: "center" }}>
+        <Link to="/">Go back to the homepage</Link>
+      </div>
+    </div>
   </>
 )
 
