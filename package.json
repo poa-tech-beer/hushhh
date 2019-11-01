@@ -26,7 +26,7 @@
     "react-textarea-autosize": "^7.1.2",
     "share-api-polyfill": "^1.0.11",
     "typeface-nanum-pen-script": "0.0.63",
-    "wired-elements": "^1.0.0"
+    "wired-elements": "^2.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
