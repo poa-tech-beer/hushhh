@@ -19,6 +19,7 @@ const MessageInput = styled(TextareaAutosize)`
   border: 0 none;
   color: white;
   height: 25%;
+  resize: none;
 `
 
 const SendButton = styled(CircleButton)`
@@ -121,11 +122,10 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
     return (
-      <div>
+      <FormContainer>
         <Title>
           Sending messages &nbsp;<u>really</u>&nbsp;privately!
         </Title>
-        <FormContainer />
         <form
           onSubmit={e => {
             setFormSubmit(true)
@@ -144,7 +144,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             <SendButtonIcon />
           </SendButton>
         </form>
-      </div>
+      </FormContainer>
     )
   }
 
@@ -153,7 +153,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <Title>
+      <p class="centered text">
         Thank you for submitting your message.
         <br />
         Now send link below to friend then wait for your friend to open the
@@ -164,7 +164,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
           <CopyButton onClick={handleShare} />
         </ShareText>
         <ShareButton onClick={handleShare} />
-      </Title>
+      </p>
     )
   }
 }

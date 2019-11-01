@@ -9,7 +9,7 @@ const HowItWorks = () => (
       <SEO title="How it works" />
       <Title>How it works 💡</Title>
     </div>
-    <div style={{ margin: "0 auto", maxWidth: "36rem" }}>
+    <div class="centered text">
       <ol>
         <li>
           Sender opens the index page, writes a message, and submits the form.

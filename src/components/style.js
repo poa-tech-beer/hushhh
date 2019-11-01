@@ -33,6 +33,14 @@ const GlobalStyle = createGlobalStyle`
   input:focus {
     outline: none;
   }
+
+  .centered {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .text {
+    max-width: 36rem;
+  }
 `
 
 const LinkNotUnderlined = styled(Link)`
@@ -49,7 +57,17 @@ const Title = styled.h1`
 `
 
 const FormContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0
+  z-index: -1;
   background-color: #0c101e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   &:focus-within {
     background-color: #060a17;
