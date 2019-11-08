@@ -1,12 +1,15 @@
 import styled, { createGlobalStyle } from "styled-components"
 import { Link } from "gatsby"
 
+import "modern-normalize/modern-normalize.css"
+import "typeface-kalam"
+
 const GlobalStyle = createGlobalStyle`
   html,
   body {
     background-color: #0c101e;
     color: white;
-    font-family: "Nanum Pen Script", cursive;
+    font-family: "Kalam", cursive;
     font-size: calc(0.75rem + 1.1vw);
   }
 
@@ -48,12 +51,10 @@ const LinkNotUnderlined = styled(Link)`
 `
 
 const Title = styled.h1`
-  font-family: "Nanum Pen Script";
   font-style: normal;
   font-weight: normal;
   font-size: 150%;
   text-align: center;
-  margin-top: 10vh;
 `
 
 const FormContainer = styled.div`
@@ -61,7 +62,7 @@ const FormContainer = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0
+  bottom: 0;
   z-index: -1;
   background-color: #0c101e;
   display: flex;

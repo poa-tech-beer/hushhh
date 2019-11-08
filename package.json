@@ -22,11 +22,12 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.11.0",
+    "react-dropzone-uploader": "^2.10.2",
     "react-helmet": "^5.2.1",
     "react-textarea-autosize": "^7.1.2",
     "share-api-polyfill": "^1.0.11",
-    "typeface-nanum-pen-script": "0.0.63",
-    "wired-elements": "^1.0.0"
+    "styled-components": "^4.4.0",
+    "typeface-kalam": "0.0.72"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
@@ -40,8 +41,7 @@
     "husky": "^2.3.0",
     "prettier": "^1.17.1",
     "prettier-eslint": "^9.0.0",
-    "prettier-eslint-cli": "^4.7.1",
-    "styled-components": "^4.4.0"
+    "prettier-eslint-cli": "^4.7.1"
   },
   "keywords": [
     "gatsby"

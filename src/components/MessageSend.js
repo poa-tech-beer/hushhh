@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import styled from "styled-components"
+import TextareaAutosize from "react-textarea-autosize"
+
 import { getPeer } from "../services/p2p"
+import FileUploader from "./FileUploader"
 
 import { ReactComponent as SendButtonIcon } from "../images/send.svg"
 import { ReactComponent as ShareButtonIcon } from "../images/share.svg"
 import { ReactComponent as CopyButtonIcon } from "../images/copy.svg"
 
-import TextareaAutosize from "react-textarea-autosize"
+// import { SendButton, CopyButton, ShareButton } from "../"
 
 import { Title, FormContainer, CircleButton } from "./style"
 
@@ -124,7 +127,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     return (
       <FormContainer>
         <Title>
-          Sending messages &nbsp;<u>really</u>&nbsp;privately!
+          Sending messages <u>really</u>&nbsp;privately!
         </Title>
         <form
           onSubmit={e => {
@@ -140,6 +143,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             }}
             value={formValues}
           />
+          <FileUploader />
           <SendButton>
             <SendButtonIcon />
           </SendButton>
