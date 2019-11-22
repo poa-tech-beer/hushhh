@@ -5,17 +5,18 @@ import "modern-normalize/modern-normalize.css"
 import "typeface-kalam"
 
 const GlobalStyle = createGlobalStyle`
-  html,
+  :root,
+  html {
+    font-size: 100%;
+  }
+
   body {
     background-color: #0c101e;
     color: white;
     font-family: "Kalam", cursive;
     font-size: calc(0.75rem + 1.1vw);
-  }
 
-  @media (min-width: 75rem) {
-    html,
-    body {
+    @media (min-width: 75rem) {
       font-size: 1.55rem;
     }
   }
@@ -30,11 +31,17 @@ const GlobalStyle = createGlobalStyle`
 
   input::placeholder {
     font-size: inherit;
-    /* color: red; */
   }
 
   input:focus {
     outline: none;
+  }
+
+  ul,
+  ol {
+    @media (min-width: 75rem) {
+      padding: 0;
+    }
   }
 
   .centered {
@@ -42,7 +49,16 @@ const GlobalStyle = createGlobalStyle`
     margin-right: auto;
   }
   .text {
-    max-width: 36rem;
+    max-width: 32em;
+  }
+  .m-v-xl {
+    margin-top: calc(1.5rem + 12%);
+    margin-bottom: calc(.75rem + 10%);
+
+    @media (min-width: 75rem) {
+      margin-top: 7.5rem;
+      margin-bottom: 5.75rem;
+    }
   }
 `
 
@@ -51,6 +67,7 @@ const LinkNotUnderlined = styled(Link)`
 `
 
 const Title = styled.h1`
+  margin: 0;
   font-style: normal;
   font-weight: normal;
   font-size: 150%;

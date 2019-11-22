@@ -15,8 +15,8 @@ import { Title, FormContainer, CircleButton } from "./style"
 
 const MessageInput = styled(TextareaAutosize)`
   display: block;
-  width: 100%;
-  margin: 0 auto;
+  width: 90vw;
+  margin: 1rem auto;
   max-width: 36rem;
   background-color: inherit;
   border: 0 none;
@@ -120,7 +120,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     return () => {
       peer.current && peer.current.off("connection", handleConnection)
     }
-  }, [])
+  }, [handleConnection])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
