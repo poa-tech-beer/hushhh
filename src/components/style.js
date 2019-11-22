@@ -11,12 +11,10 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: #0c101e;
     color: white;
     font-family: "Kalam", cursive;
     font-size: calc(0.75rem + 1.1vw);
-    min-height: 100vh;
-    overflow: hidden;
+    background-color: #0c101e;
 
     @media (min-width: 75rem) {
       font-size: 1.55rem;
@@ -36,7 +34,12 @@ const GlobalStyle = createGlobalStyle`
 
   input::placeholder {
     font-size: inherit;
+    text-align: center;
   }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+   text-align: center;
+}
 
   input:focus {
     outline: none;
@@ -55,7 +58,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .text {
+    padding-right: 1em;
+    padding-left: 1em;
     max-width: 32em;
+
+    @media (min-width: 40rem) {
+      padding: 0;
+    }
   }
 
   .m-v-xl {
@@ -82,27 +91,9 @@ const Title = styled.h1`
 `
 
 const FormContainer = styled.div`
-  // width: 75%;
-  // margin-left: auto;
-  // margin-right: auto;
-
-  /*
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background-color: #0c101e;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-items: center;
-  */
-
-  // &:focus-within {
-  //   background-color: #060a17;
-  // }
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 const CircleButton = styled.button`

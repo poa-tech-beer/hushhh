@@ -16,11 +16,13 @@ import { Title, FormContainer, CircleButton } from "./style"
 const MessageInput = styled(TextareaAutosize)`
   display: block;
   margin: 1rem auto;
-  max-width: 36rem;
   background-color: inherit;
   border: 0 none;
   color: white;
   resize: none;
+  font-size: 4.5rem;
+  width: 100%;
+  margin-top: 15%;
 `
 
 const SendButton = styled(CircleButton)`
@@ -123,7 +125,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
     return (
-      <FormContainer>
+      <>
         <div class="text centered m-v-xl">
           <Title>
             Sending messages <u>really</u>&nbsp;privately!
@@ -132,32 +134,34 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             Hush is Peer to Peer. We cannot read your message.
           </p>
         </div>
-        <form
-          onSubmit={e => {
-            setFormSubmit(true)
-            e.preventDefault()
-          }}
-        >
-          <MessageInput
-            placeholder="Type your Secret Message✍️"
-            autoFocus
-            onInput={e => {
-              setFormState(e.currentTarget.value)
+        <FormContainer>
+          <form
+            onSubmit={e => {
+              setFormSubmit(true)
+              e.preventDefault()
             }}
-            onFocus={e => {
-              document.body.toggleAttribute("data-bg-alt")
-            }}
-            onBlur={e => {
-              document.body.toggleAttribute("data-bg-alt")
-            }}
-            value={formValues}
-          />
-          <FileUploader />
-          <SendButton>
-            <SendButtonIcon />
-          </SendButton>
-        </form>
-      </FormContainer>
+          >
+            <MessageInput
+              placeholder="Type your Secret Message ✍️"
+              autoFocus
+              onInput={e => {
+                setFormState(e.currentTarget.value)
+              }}
+              onFocus={e => {
+                document.body.toggleAttribute("data-bg-alt")
+              }}
+              onBlur={e => {
+                document.body.toggleAttribute("data-bg-alt")
+              }}
+              value={formValues}
+            />
+            <FileUploader />
+            <SendButton>
+              <SendButtonIcon />
+            </SendButton>
+          </form>
+        </FormContainer>
+      </>
     )
   }
 
