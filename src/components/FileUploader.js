@@ -3,6 +3,8 @@ import Dropzone from "react-dropzone-uploader"
 import styled from "styled-components"
 
 const Container = styled.div`
+  text-align: center;
+
   .dzu-dropzone {
     position: absolute;
     top: 0;
@@ -84,7 +86,8 @@ const FileUploader = () => {
         onSubmit={handleSubmit}
         accept="image/*,audio/*,video/*"
         LayoutComponent={Layout}
-        maxFiles={1}
+        multiple={false}
+        inputContent="Or drop a file 📁"
       />
     </Container>
   )
