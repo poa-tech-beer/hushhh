@@ -15,13 +15,11 @@ import { Title, FormContainer, CircleButton } from "./style"
 
 const MessageInput = styled(TextareaAutosize)`
   display: block;
-  width: 90vw;
   margin: 1rem auto;
   max-width: 36rem;
   background-color: inherit;
   border: 0 none;
   color: white;
-  height: 25%;
   resize: none;
 `
 
@@ -126,9 +124,14 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   if (!isFormSubmit) {
     return (
       <FormContainer>
-        <Title>
-          Sending messages <u>really</u>&nbsp;privately!
-        </Title>
+        <div class="text centered m-v-xl">
+          <Title>
+            Sending messages <u>really</u>&nbsp;privately!
+          </Title>
+          <p style={{ textAlign: "center" }}>
+            Hush is Peer to Peer. We cannot read your message.
+          </p>
+        </div>
         <form
           onSubmit={e => {
             setFormSubmit(true)
@@ -140,6 +143,12 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             autoFocus
             onInput={e => {
               setFormState(e.currentTarget.value)
+            }}
+            onFocus={e => {
+              document.body.toggleAttribute("data-bg-alt")
+            }}
+            onBlur={e => {
+              document.body.toggleAttribute("data-bg-alt")
             }}
             value={formValues}
           />

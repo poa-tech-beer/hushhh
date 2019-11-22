@@ -21,7 +21,7 @@ const Header = ({ siteTitle }) => (
     <Inner>
       <LinkNotUnderlined to="/">{siteTitle}</LinkNotUnderlined>
       <LinkNotUnderlined to="/how-it-works" style={{ marginLeft: "auto" }}>
-        🤔 How it works?
+        🤔 How it works
       </LinkNotUnderlined>
       <LinkNotUnderlined to="/about" style={{ marginLeft: ".618em" }}>
         👀 About
