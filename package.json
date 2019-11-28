@@ -26,7 +26,7 @@
     "react-helmet": "^5.2.1",
     "react-textarea-autosize": "^7.1.2",
     "share-api-polyfill": "^1.0.11",
-    "styled-components": "^4.4.0",
+    "styled-components": "^4.4.1",
     "typeface-kalam": "0.0.72"
   },
   "devDependencies": {
