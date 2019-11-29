@@ -170,7 +170,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <p class="centered text">
+      <div class="centered text">
         Thank you for submitting your message.
         <br />
         Now send link below to friend then wait for your friend to open the
@@ -181,7 +181,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
           <CopyButton onClick={handleShare} />
         </ShareText>
         <ShareButton onClick={handleShare} />
-      </p>
+      </div>
     )
   }
 }
