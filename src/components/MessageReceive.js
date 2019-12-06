@@ -3,9 +3,18 @@ import { Link } from "gatsby"
 import React, { useState, useEffect, useRef } from "react"
 import { getPeer } from "../services/p2p"
 import Layout from "./Layout"
+import styled from "styled-components"
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
+const MessageText = styled.h2`
+  display: flex;
+  text-decoration: underline white;
+  font-size: 115%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+`
 /**
  * When user arrives on index with an ID (-> receiver).
  *
@@ -69,16 +78,16 @@ const MessageReceive = ({ id, setAlert }) => {
     let output = ""
     if (msgContent.length) {
       output = (
-        <div className="textTitle">
+        <MessageText>
           {output}
           <p>{msgContent}</p>
-        </div>
+        </MessageText>
       )
     }
     return output
   } else {
     return (
-      <p className="textTitle">{`You are opening message id = '${id}'...`}</p>
+      <MessageText>{`You are opening message id = '${id}'...`}</MessageText>
     )
   }
 }

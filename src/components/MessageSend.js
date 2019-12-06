@@ -38,9 +38,9 @@ const CopyButton = styled(CircleButton)`
 `
 
 const ShareButton = styled(CircleButton)`
-  position: fixed;
-  bottom: 15%;
-  left: 50%;
+  display: block;
+  border-radius: 48px;
+  margin: 0.618rem auto;
 `
 
 const ShareText = styled.h2`
@@ -49,6 +49,11 @@ const ShareText = styled.h2`
   font-size: 115%;
   justify-content: center;
   align-items: center;
+`
+
+const AfterSendText = styled.h2`
+  margin: 10% 2%;
+  text-align: center;
 `
 
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
@@ -176,7 +181,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <div class="centered text">
+      <AfterSendText>
         Thank you for submitting your message.
         <br />
         Now send link below to friend then wait for your friend to open the
@@ -186,8 +191,10 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
           <span>{host}</span>
           <CopyButton onClick={handleShare} />
         </ShareText>
-        <ShareButton onClick={handleShare} />
-      </div>
+        <ShareButton onClick={handleShare}>
+          <ShareButtonIcon />
+        </ShareButton>
+      </AfterSendText>
     )
   }
 }

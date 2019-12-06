@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { motion } from "framer-motion"
+import { ReactComponent as CrossIcon } from "../images/cross.svg"
 
 const Alert = ({ item }) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -53,30 +54,7 @@ const Alert = ({ item }) => {
             transition: "color .25s",
           }}
         >
-          <svg width="23" height="23" viewBox="0 0 23 23">
-            <path
-              fill="transparent"
-              stroke-width="3"
-              stroke="currentColor"
-              stroke-linecap="round"
-              d="M 3 16.5 L 17 2.5"
-            />
-            <path
-              fill="transparent"
-              stroke-width="3"
-              stroke="currentColor"
-              stroke-linecap="round"
-              d="M 2 9.423 L 20 9.423"
-              opacity="0"
-            />
-            <path
-              fill="transparent"
-              stroke-width="3"
-              stroke="currentColor"
-              stroke-linecap="round"
-              d="M 3 2.5 L 17 16.346"
-            />
-          </svg>
+          <CrossIcon />
         </motion.button>
       </p>
     </motion.div>
