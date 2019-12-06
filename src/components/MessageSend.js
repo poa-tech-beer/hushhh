@@ -74,17 +74,23 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   const handleOpen = useCallback(() => {
     connection.current.send(formValuesRef.current)
   }, [])
-  const handleData = data => {
-    setAlert("Receiver has opened your message.")
-  }
+  const handleData = useCallback(
+    data => {
+      setAlert("Receiver has opened your message.")
+    },
+    [setAlert]
+  )
 
-  const handleConnection = _connection => {
-    _connection.on("error", handleConnectionError)
-    _connection.on("open", handleOpen)
-    _connection.on("data", handleData)
+  const handleConnection = useCallback(
+    _connection => {
+      _connection.on("error", handleConnectionError)
+      _connection.on("open", handleOpen)
+      _connection.on("data", handleData)
 
-    connection.current = _connection
-  }
+      connection.current = _connection
+    },
+    [handleData, handleOpen]
+  )
 
   const handleShare = useCallback(() => {
     if (navigator.share) {
