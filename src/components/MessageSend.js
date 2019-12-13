@@ -29,13 +29,14 @@ const MessageInput = styled(TextareaAutosize)`
   font-size: 3.1em;
   width: 100%;
   margin-top: 15%;
+  padding-top: 15px;
 `
 
 const SendButton = styled(CircleButton)`
   display: block;
   border-radius: 48px;
   margin: 0.618rem auto;
-  transition: opacity 2s;
+  transition: all 1s;
   visibility: ${props => (props.isVisible ? "visible" : "hidden")};
   opacity: ${props => (props.isVisible ? 1 : 0)};
 `
@@ -62,7 +63,7 @@ const ShareText = styled.h2`
 
 const AfterSendText = styled(BaseTitle)`
   // font-size: 100%;
-  // margin: 10% 2%;
+  // margin: 12% 2%;
   text-align: center;
 `
 
@@ -80,6 +81,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
 
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
+  const [isFontReady, setFontReady] = useState(false)
   const host = peer.current && `${location.href}?id=${peer.current.id}`
 
   formValuesRef.current = formValues
@@ -143,11 +145,21 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     }
   }, [handleConnection])
 
+  useEffect(() => {
+    document.fonts.ready.then(() => {
+      setTimeout(() => {
+        setFontReady(true)
+      }, 1000)
+    })
+  }, [])
+
+  console.log(isFontReady)
+
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
     return (
       <>
-        <div class="text centered m-v-xl">
+        <div className="text centered m-v-xl">
           <Title>
             Sending messages <u>really</u>&nbsp;privately!
           </Title>
@@ -162,20 +174,23 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
               e.preventDefault()
             }}
           >
-            <MessageInput
-              placeholder="Type your Secret Message ✍️"
-              autoFocus
-              onInput={e => {
-                setFormState(e.currentTarget.value)
-              }}
-              onFocus={e => {
-                document.body.toggleAttribute("data-bg-alt")
-              }}
-              onBlur={e => {
-                document.body.toggleAttribute("data-bg-alt")
-              }}
-              value={formValues}
-            />
+            <div>
+              <MessageInput
+                rows={1}
+                placeholder="Type your Secret Message ✍️"
+                autoFocus
+                onInput={e => {
+                  setFormState(e.currentTarget.value)
+                }}
+                onFocus={e => {
+                  document.body.toggleAttribute("data-bg-alt")
+                }}
+                onBlur={e => {
+                  document.body.toggleAttribute("data-bg-alt")
+                }}
+                value={formValues}
+              />
+            </div>
             {/* <FileUploader /> */}
             <SendButton isVisible={!!formValues}>
               <SendButtonIcon />
@@ -190,13 +205,14 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // when receiver opens the link (on src/components/MessageReceive.js), the
   // connection will happen.
   else {
+    // setAlert("⚠️ Keep this tab open, or your message will be lost!")
     return (
       <div class="m-v-xl">
         <AfterSendText>
-          Thank you for submitting your message.
+          {/* Thank you for submitting your message.
           <br />
           Now send link below to friend then wait for your friend to open the
-          message.
+          message. */}
           <ShareText>
             <br />
             <span>{host}</span>
