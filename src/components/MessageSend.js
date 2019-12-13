@@ -11,7 +11,11 @@ import { ReactComponent as CopyButtonIcon } from "../images/copy.svg"
 
 // import { SendButton, CopyButton, ShareButton } from "../"
 
-import { Title, FormContainer, CircleButton } from "./style"
+import { Title as BaseTitle, FormContainer, CircleButton } from "./style"
+
+const Title = styled(BaseTitle)`
+  font-size: 100%;
+`
 
 const MessageInput = styled(TextareaAutosize)`
   display: block;
@@ -20,7 +24,9 @@ const MessageInput = styled(TextareaAutosize)`
   border: 0 none;
   color: white;
   resize: none;
-  font-size: 4.5rem;
+  box-shadow: none;
+  outline: none;
+  font-size: 3.8em;
   width: 100%;
   margin-top: 15%;
 `
@@ -29,6 +35,7 @@ const SendButton = styled(CircleButton)`
   display: block;
   border-radius: 48px;
   margin: 0.618rem auto;
+  visibility: ${props => (props.isVisible ? "visible" : "hidden")};
 `
 
 const CopyButton = styled(CircleButton)`
@@ -51,7 +58,8 @@ const ShareText = styled.h2`
   align-items: center;
 `
 
-const AfterSendText = styled.h2`
+const AfterSendText = styled(BaseTitle)`
+  font-size: 100%;
   margin: 10% 2%;
   text-align: center;
 `
@@ -166,8 +174,8 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
               }}
               value={formValues}
             />
-            <FileUploader />
-            <SendButton>
+            {/* <FileUploader /> */}
+            <SendButton isVisible={!!formValues}>
               <SendButtonIcon />
             </SendButton>
           </form>

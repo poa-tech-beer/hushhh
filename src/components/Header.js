@@ -12,7 +12,7 @@ const Container = styled.header`
 const Inner = styled.nav`
   display: flex;
   color: white;
-  padding: 0.618rem 1.618rem;
+  padding: 1em 1.618em;
   width: 100%;
 `
 
@@ -23,7 +23,7 @@ const Header = ({ siteTitle }) => (
       <LinkNotUnderlined to="/how-it-works" style={{ marginLeft: "auto" }}>
         🤔 How it works
       </LinkNotUnderlined>
-      <LinkNotUnderlined to="/about" style={{ marginLeft: ".618em" }}>
+      <LinkNotUnderlined to="/about" style={{ marginLeft: "1.618em" }}>
         👀 About
       </LinkNotUnderlined>
     </Inner>

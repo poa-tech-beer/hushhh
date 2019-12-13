@@ -13,11 +13,12 @@ const GlobalStyle = createGlobalStyle`
   body {
     color: white;
     font-family: "Kalam", cursive;
-    font-size: calc(0.75rem + 1.1vw);
+    font-size: calc(0.75rem + 1.2vw);
     background-color: #0c101e;
+    line-height: 135%;
 
     @media (min-width: 75rem) {
-      font-size: 1.55rem;
+      font-size: 1.4rem;
     }
   }
   body[data-bg-alt] {
@@ -32,14 +33,14 @@ const GlobalStyle = createGlobalStyle`
     color: #0085ff;
   }
 
-  input::placeholder {
+  input::placeholder,
+  ::-moz-placeholder { /* Firefox 19+ */
     font-size: inherit;
     text-align: center;
+    opacity: 1;
+    color: #4C5365;
+    white-space: nowrap;
   }
-
-  ::-moz-placeholder {  /* Firefox 19+ */
-   text-align: center;
-}
 
   input:focus {
     outline: none;
@@ -68,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .m-v-xl {
-    margin-top: calc(1.5rem + 12%);
+    margin-top: calc(1.5rem + 17%);
     margin-bottom: calc(.75rem + 10%);
 
     @media (min-width: 75rem) {
