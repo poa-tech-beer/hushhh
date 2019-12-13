@@ -15,9 +15,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Kalam", cursive;
     font-size: calc(0.75rem + 1.2vw);
     background-color: #0c101e;
-    line-height: 135%;
+    line-height: 140%;
 
-    @media (min-width: 75rem) {
+    @media (min-width: 60rem) {
       font-size: 1.4rem;
     }
   }
@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
 
   a:hover {
     color: #0085ff;
+  }
+
+  p {
+    margin: 0;
   }
 
   input::placeholder,
@@ -48,7 +52,7 @@ const GlobalStyle = createGlobalStyle`
 
   ul,
   ol {
-    @media (min-width: 75rem) {
+    @media (min-width: 60rem) {
       padding: 0;
     }
   }
@@ -69,11 +73,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .m-v-xl {
-    margin-top: calc(1.5rem + 17%);
+    margin-top: calc(1.95rem + 13%);
     margin-bottom: calc(.75rem + 10%);
 
-    @media (min-width: 75rem) {
-      margin-top: 7.5rem;
+    @media (min-width: 60rem) {
+      margin-top: 9.75rem;
       margin-bottom: 5.75rem;
     }
   }

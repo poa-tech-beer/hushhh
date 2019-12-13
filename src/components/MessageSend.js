@@ -26,7 +26,7 @@ const MessageInput = styled(TextareaAutosize)`
   resize: none;
   box-shadow: none;
   outline: none;
-  font-size: 3.8em;
+  font-size: 3.1em;
   width: 100%;
   margin-top: 15%;
 `
@@ -35,7 +35,9 @@ const SendButton = styled(CircleButton)`
   display: block;
   border-radius: 48px;
   margin: 0.618rem auto;
+  transition: opacity 2s;
   visibility: ${props => (props.isVisible ? "visible" : "hidden")};
+  opacity: ${props => (props.isVisible ? 1 : 0)};
 `
 
 const CopyButton = styled(CircleButton)`
@@ -59,8 +61,8 @@ const ShareText = styled.h2`
 `
 
 const AfterSendText = styled(BaseTitle)`
-  font-size: 100%;
-  margin: 10% 2%;
+  // font-size: 100%;
+  // margin: 10% 2%;
   text-align: center;
 `
 
@@ -189,20 +191,22 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <AfterSendText>
-        Thank you for submitting your message.
-        <br />
-        Now send link below to friend then wait for your friend to open the
-        message.
-        <ShareText>
+      <div class="m-v-xl">
+        <AfterSendText>
+          Thank you for submitting your message.
           <br />
-          <span>{host}</span>
-          <CopyButton onClick={handleShare} />
-        </ShareText>
-        <ShareButton onClick={handleShare}>
-          <ShareButtonIcon />
-        </ShareButton>
-      </AfterSendText>
+          Now send link below to friend then wait for your friend to open the
+          message.
+          <ShareText>
+            <br />
+            <span>{host}</span>
+            <CopyButton onClick={handleShare} />
+          </ShareText>
+          <ShareButton onClick={handleShare}>
+            <ShareButtonIcon />
+          </ShareButton>
+        </AfterSendText>
+      </div>
     )
   }
 }
