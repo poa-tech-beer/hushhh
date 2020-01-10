@@ -38,7 +38,7 @@
     "gatsby-plugin-styled-components": "^3.1.14",
     "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-source-filesystem": "^2.1.39",
-    "gatsby-transformer-sharp": "^2.2.23",
+    "gatsby-transformer-sharp": "^2.3.12",
     "pretty-quick": "^2.0.1",
     "husky": "^2.3.0",
     "prettier": "^1.19.1",
