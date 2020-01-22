@@ -84,6 +84,13 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   const [isFontReady, setFontReady] = useState(false)
   const host = peer.current && `${location.href}?id=${peer.current.id}`
 
+  // When form is submitted, display alert.
+  useEffect(() => {
+    if (isFormSubmit) {
+      setAlert("⚠️ Keep this tab open, or your message will be lost!")
+    }
+  }, [isFormSubmit])
+
   formValuesRef.current = formValues
 
   // Add errors event listeners
@@ -145,6 +152,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     }
   }, [handleConnection])
 
+  // TODO [wip] font loading below : finished ?
   useEffect(() => {
     document.fonts.ready.then(() => {
       setTimeout(() => {
@@ -152,7 +160,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
       }, 1000)
     })
   }, [])
-
   console.log(isFontReady)
 
   // Not submitted yet (enter message + show button "send").
@@ -205,14 +212,9 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // when receiver opens the link (on src/components/MessageReceive.js), the
   // connection will happen.
   else {
-    // setAlert("⚠️ Keep this tab open, or your message will be lost!")
     return (
       <div class="m-v-xl">
         <AfterSendText>
-          {/* Thank you for submitting your message.
-          <br />
-          Now send link below to friend then wait for your friend to open the
-          message. */}
           <ShareText>
             <br />
             <span>{host}</span>

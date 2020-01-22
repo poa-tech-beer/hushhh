@@ -13,7 +13,6 @@ const MessageText = styled.h2`
   font-size: 115%;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
 `
 /**
  * When user arrives on index with an ID (-> receiver).
@@ -77,12 +76,7 @@ const MessageReceive = ({ id, setAlert }) => {
   if (msgSenderIsNotified || msgContent.length) {
     let output = ""
     if (msgContent.length) {
-      output = (
-        <MessageText>
-          {output}
-          <p>{msgContent}</p>
-        </MessageText>
-      )
+      output = <MessageText>{msgContent}</MessageText>
     }
     return output
   } else {
