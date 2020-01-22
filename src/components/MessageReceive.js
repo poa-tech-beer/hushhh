@@ -8,11 +8,13 @@ import styled from "styled-components"
 // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 
 const MessageText = styled.h2`
-  display: flex;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
   text-decoration: underline white;
   font-size: 115%;
-  justify-content: center;
-  align-items: center;
+  // min-height: 100vh;
+  // padding-top: 20vh;
 `
 /**
  * When user arrives on index with an ID (-> receiver).
@@ -74,14 +76,22 @@ const MessageReceive = ({ id, setAlert }) => {
   }, [id, setAlert])
 
   if (msgSenderIsNotified || msgContent.length) {
-    let output = ""
-    if (msgContent.length) {
-      output = <MessageText>{msgContent}</MessageText>
-    }
-    return output
+    // let output = ""
+    // if (msgContent.length) {
+    //   output = <MessageText>{msgContent}</MessageText>
+    // }
+    // return output
+    return (
+      // TODO : style BG rounded.
+      <div className="u-vcenter" style={{ textAlign: "center" }}>
+        <MessageText>{msgContent}</MessageText>
+      </div>
+    )
   } else {
     return (
-      <MessageText>{`You are opening message id = '${id}'...`}</MessageText>
+      <div className="u-vcenter" style={{ textAlign: "center" }}>
+        <MessageText>{`You are opening message id = '${id}'...`}</MessageText>
+      </div>
     )
   }
 }

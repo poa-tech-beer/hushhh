@@ -213,7 +213,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <div class="m-v-xl">
+      <div className="u-vcenter">
         <AfterSendText>
           <ShareText>
             <br />

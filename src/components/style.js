@@ -81,6 +81,14 @@ const GlobalStyle = createGlobalStyle`
       margin-bottom: 5.75rem;
     }
   }
+
+  .u-vcenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 20vh;
+  }
 `
 
 const LinkNotUnderlined = styled(Link)`
