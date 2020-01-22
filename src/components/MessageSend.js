@@ -26,30 +26,31 @@ const MessageInput = styled(TextareaAutosize)`
   resize: none;
   box-shadow: none;
   outline: none;
-  font-size: 3.1em;
+  font-size: 4em;
   width: 100%;
-  margin-top: 15%;
   padding-top: 15px;
+
+  @media (min-width: 60rem) {
+    font-size: 6.05vw;
+  }
 `
 
 const SendButton = styled(CircleButton)`
-  display: block;
-  border-radius: 48px;
+  border-radius: 68px 98px 78px 88px;
+  padding: 8px;
   margin: 0.618rem auto;
-  transition: all 1s;
   visibility: ${props => (props.isVisible ? "visible" : "hidden")};
   opacity: ${props => (props.isVisible ? 1 : 0)};
 `
 
 const CopyButton = styled(CircleButton)`
-  display: flex;
   position: inherit;
   margin-left: 10px;
 `
 
 const ShareButton = styled(CircleButton)`
-  display: block;
-  border-radius: 48px;
+  border-radius: 127px 98px 118px 88px;
+  padding: 8px;
   margin: 0.618rem auto;
 `
 

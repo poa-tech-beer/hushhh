@@ -107,19 +107,20 @@ const FormContainer = styled.div`
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: calc(50vh - 300px);
 `
 
 const CircleButton = styled.button`
-  display: block;
-  // height: 96px;
-  // width: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   cursor: pointer;
   outline: none;
   overflow: hidden;
-  // margin-left: -48px;
   background-repeat: no-repeat;
   background-color: inherit;
+  transition: all 0.25s;
 
   &:hover {
     background-color: #0085ff;
