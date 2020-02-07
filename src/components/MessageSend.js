@@ -101,6 +101,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   }, [])
   const handleData = useCallback(
     data => {
+      console.log("handleData")
       setAlert("Receiver has opened your message.")
     },
     [setAlert]
@@ -151,7 +152,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     return () => {
       peer.current && peer.current.off("connection", handleConnection)
     }
-  }, [handleConnection])
+  }, [])
 
   // TODO [wip] font loading below : finished ?
   useEffect(() => {

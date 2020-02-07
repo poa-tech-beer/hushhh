@@ -11,10 +11,10 @@ const MessageText = styled.h2`
   // display: flex;
   // flex-direction: column;
   // justify-content: center;
-  text-decoration: underline white;
-  font-size: 115%;
   // min-height: 100vh;
   // padding-top: 20vh;
+  text-decoration: underline white;
+  font-size: 115%;
 `
 /**
  * When user arrives on index with an ID (-> receiver).
@@ -25,8 +25,8 @@ const MessageReceive = ({ id, setAlert }) => {
   let peer = useRef(null)
   let handleOpen
   let handleData
-  const [msgSenderIsNotified, setMsgReceived] = useState(false)
-  const [msgContent, setMsgContent] = useState("")
+  const [msgSenderIsNotified, setMsgReceived] = useState(true)
+  const [msgContent, setMsgContent] = useState("The fake message")
 
   useEffect(() => {
     /**
@@ -60,7 +60,6 @@ const MessageReceive = ({ id, setAlert }) => {
        */
       handleData = data => {
         setMsgContent(data)
-        setAlert("The sender is aware you have opened the message. 🕵")
         console.log("handleData")
       }
       connection.on("data", handleData)
@@ -69,11 +68,18 @@ const MessageReceive = ({ id, setAlert }) => {
     if (!peer.current) startPeer()
 
     return () => {
-      peer.current.off("data", handleData)
-      peer.current.off("open", handleOpen)
+      if (peer.current) {
+        peer.current.off("data", handleData)
+        peer.current.off("open", handleOpen)
+      }
       console.log("off")
     }
-  }, [id, setAlert])
+  }, [id, peer, setAlert])
+
+  // "React way": when msgContent changes, setAlert
+  useEffect(() => {
+    setAlert("The sender is aware you have opened the message. 🕵")
+  }, [msgContent])
 
   if (msgSenderIsNotified || msgContent.length) {
     // let output = ""
