@@ -15,6 +15,10 @@ const MessageText = styled.h2`
   // padding-top: 20vh;
   text-decoration: underline white;
   font-size: 115%;
+  padding: 3em;
+  margin: 0 5em;
+  border-radius: 1em;
+  background-color: #292933;
 `
 /**
  * When user arrives on index with an ID (-> receiver).

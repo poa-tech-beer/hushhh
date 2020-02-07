@@ -45,7 +45,19 @@ const SendButton = styled(CircleButton)`
 
 const CopyButton = styled(CircleButton)`
   position: inherit;
-  margin-left: 10px;
+  margin-left: 30px;
+
+  svg path {
+    transition: all 0.25s;
+  }
+
+  &:hover {
+    background-color: transparent;
+
+    svg path {
+      fill: #0085ff;
+    }
+  }
 `
 
 const ShareButton = styled(CircleButton)`
@@ -56,10 +68,11 @@ const ShareButton = styled(CircleButton)`
 
 const ShareText = styled.h2`
   display: flex;
-  text-decoration: underline white;
+  text-decoration: underline gray;
   font-size: 115%;
   justify-content: center;
   align-items: center;
+  color: gray;
 `
 
 const AfterSendText = styled(BaseTitle)`
@@ -117,6 +130,10 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     },
     [handleData, handleOpen]
   )
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(host)
+  })
 
   const handleShare = useCallback(() => {
     if (navigator.share) {
@@ -220,7 +237,11 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
           <ShareText>
             <br />
             <span>{host}</span>
-            <CopyButton onClick={handleShare} />
+            {navigator.clipboard && (
+              <CopyButton onClick={handleCopy}>
+                <CopyButtonIcon />
+              </CopyButton>
+            )}
           </ShareText>
           <ShareButton onClick={handleShare}>
             <ShareButtonIcon />

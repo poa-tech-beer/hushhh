@@ -32,9 +32,10 @@ const Alert = ({ item }) => {
         style={{
           margin: "0 auto",
           fontSize: "1.75em",
-          maxWidth: "24em",
+          maxWidth: "20em",
           background: "#0085FF",
           borderRadius: "9px",
+          marginTop: "1em",
           padding: "1em",
           textAlign: "center",
           display: "flex",
