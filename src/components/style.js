@@ -93,6 +93,10 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     padding-top: 20vh;
   }
+
+  .u-text-center {
+    text-align: center;
+  }
 `
 
 const LinkNotUnderlined = styled(Link)`

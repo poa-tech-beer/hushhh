@@ -3,7 +3,7 @@ import styled from "styled-components"
 import TextareaAutosize from "react-textarea-autosize"
 
 import { getPeer } from "../services/p2p"
-import FileUploader from "./FileUploader"
+// import FileUploader from "./FileUploader"
 
 import { ReactComponent as SendButtonIcon } from "../images/send.svg"
 import { ReactComponent as ShareButtonIcon } from "../images/share.svg"
@@ -45,7 +45,7 @@ const SendButton = styled(CircleButton)`
 
 const CopyButton = styled(CircleButton)`
   position: inherit;
-  margin-left: 30px;
+  margin-left: 15px;
   color: var(--gray);
 
   svg path {
@@ -67,18 +67,20 @@ const ShareButton = styled(CircleButton)`
   margin: 0.618rem auto;
 `
 
-const ShareText = styled.h2`
+const ShareText = styled.span`
   display: flex;
   text-decoration: underline gray;
-  font-size: 115%;
   justify-content: center;
   align-items: center;
   color: var(--gray);
+  font-size: 4em;
+
+  @media (min-width: 60rem) {
+    font-size: 6.05vw;
+  }
 `
 
-const AfterSendText = styled(BaseTitle)`
-  // font-size: 100%;
-  // margin: 12% 2%;
+const Container = styled.div`
   text-align: center;
 `
 
@@ -97,14 +99,14 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
   const [isFontReady, setFontReady] = useState(false)
-  const host = peer.current && `${location.href}?id=${peer.current.id}`
+  const host = peer.current && `${location.host}?id=${peer.current.id}`
 
   // When form is submitted, display alert.
   useEffect(() => {
     if (isFormSubmit) {
       setAlert("⚠️ Keep this tab open, or your message will be lost!")
     }
-  }, [isFormSubmit])
+  }, [isFormSubmit, setAlert])
 
   formValuesRef.current = formValues
 
@@ -170,7 +172,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     return () => {
       peer.current && peer.current.off("connection", handleConnection)
     }
-  }, [])
+  }, [handleConnection])
 
   // TODO [wip] font loading below : finished ?
   useEffect(() => {
@@ -180,7 +182,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
       }, 1000)
     })
   }, [])
-  console.log(isFontReady)
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {
@@ -233,21 +234,19 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   // connection will happen.
   else {
     return (
-      <div className="u-vcenter">
-        <AfterSendText>
-          <ShareText>
-            <br />
-            <span>{host}</span>
-            {navigator.clipboard && (
-              <CopyButton onClick={handleCopy}>
-                <CopyButtonIcon />
-              </CopyButton>
-            )}
-          </ShareText>
-          <ShareButton onClick={handleShare}>
-            <ShareButtonIcon />
-          </ShareButton>
-        </AfterSendText>
+      <div className="u-vcenter u-text-center">
+        <ShareText>
+          <br />
+          <span>{host}</span>
+          {navigator.clipboard && (
+            <CopyButton onClick={handleCopy}>
+              <CopyButtonIcon />
+            </CopyButton>
+          )}
+        </ShareText>
+        <ShareButton onClick={handleShare}>
+          <ShareButtonIcon />
+        </ShareButton>
       </div>
     )
   }
