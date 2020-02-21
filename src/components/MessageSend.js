@@ -46,6 +46,7 @@ const SendButton = styled(CircleButton)`
 const CopyButton = styled(CircleButton)`
   position: inherit;
   margin-left: 30px;
+  color: var(--gray);
 
   svg path {
     transition: all 0.25s;
@@ -72,7 +73,7 @@ const ShareText = styled.h2`
   font-size: 115%;
   justify-content: center;
   align-items: center;
-  color: gray;
+  color: var(--gray);
 `
 
 const AfterSendText = styled(BaseTitle)`

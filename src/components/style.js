@@ -5,6 +5,10 @@ import "modern-normalize/modern-normalize.css"
 import "typeface-kalam"
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --gray: #707996;
+  }
+
   :root,
   html {
     font-size: 100%;
