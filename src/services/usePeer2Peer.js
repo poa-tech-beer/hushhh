@@ -16,14 +16,18 @@ import { getPeer } from "./peerjs"
 const usePeer2Peer = (config = {}) => {
   const { openedId, payload, onData } = config
 
-  let [peer, setPeer] = useState()
+  // let [peer, setPeer] = useState()
+  let [peerId, setPeerId] = useState()
   let connection = useRef(null)
 
   /**
    * Carry on sending the payload when the connection heppens between 2 peers.
    */
-  const handleOpen = useCallback(() => {
+  const handleOpen = useCallback(id => {
     connection.current.send(payload)
+    console.log("handleOpen")
+    console.log(id)
+    setPeerId(id)
   }, [])
 
   /**
@@ -44,21 +48,24 @@ const usePeer2Peer = (config = {}) => {
    * handleConnection() to assign event handlers.
    */
   useEffect(() => {
-    if (!peer) {
+    if (!peerId) {
       const startPeer = async () => {
         const _peer = await getPeer()
-        setPeer(_peer)
+        // setPeer(_peer)
+        // console.log(_peer)
+        // console.log(_peer._id)
 
         // If we don't have an ID, we're the sender : we request an id from
         // PeerJS in order to instanciate a new connection (to be shared with
         // the receiver).
         if (!openedId) {
+          console.log("on connection")
           _peer.on("connection", handleConnection)
         }
 
         // If we are the receiver, we want to connect to the sender by ID.
         else {
-          connection.current = _peer.connect(id)
+          connection.current = _peer.connect(openedId)
           connection.current.on("data", handleData)
         }
       }
@@ -75,6 +82,7 @@ const usePeer2Peer = (config = {}) => {
    */
   const handleConnection = useCallback(
     _connection => {
+      console.log("handle connection")
       _connection.on("error", handleConnectionError)
       _connection.on("open", handleOpen)
       _connection.on("data", handleData)
@@ -83,7 +91,7 @@ const usePeer2Peer = (config = {}) => {
     [handleData, handleOpen]
   )
 
-  return { id: peer ? peer.id : 0 }
+  return { id: peerId ? peerId : 0 }
 }
 
 export default usePeer2Peer

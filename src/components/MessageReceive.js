@@ -17,7 +17,7 @@ const MessageText = styled.h2`
   border-radius: 1em;
   background-color: #292933;
 `
-// TODO: insert button to show the text setPreviewMessage(true)
+// TODO: insert button to show the text after setPreviewMessage(true)
 const MessagePreview = (
   <React.Fragment>
     Someone sent you a Secret Message!
@@ -35,6 +35,8 @@ const MessagePreview = (
  */
 const MessageReceive = ({ id, setAlert }) => {
   const [msgContent, setMsgContent] = useState("The fake message")
+
+  console.log(id)
 
   usePeer2Peer({
     id,

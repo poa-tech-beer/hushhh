@@ -102,7 +102,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     },
   })
 
-  // console.log(id) // undefined
+  console.log(id) // undefined
 
   const host = id && `${window.location.host}?id=${id}`
 
