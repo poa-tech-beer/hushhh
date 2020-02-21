@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useCallback } from "react"
 import { Link } from "gatsby"
 
 import Image from "../components/Image"
@@ -15,9 +15,9 @@ const IndexPage = ({ location }) => {
   const id = currentRoute.get("id")
   const [alertItem, setAlert] = useState({})
 
-  const handleAlert = function(msg, type) {
+  const handleAlert = useCallback((msg, type) => {
     setAlert({ body: msg, type: type ? type : "default" })
-  }
+  }, [])
 
   return (
     <>
