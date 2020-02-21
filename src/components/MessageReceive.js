@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import React, { useState, useEffect, useRef } from "react"
-import { getPeer } from "../services/p2p"
+import { getPeer } from "../services/peerjs"
 import Layout from "./Layout"
 import styled from "styled-components"
 
@@ -20,6 +20,14 @@ const MessageText = styled.h2`
   border-radius: 1em;
   background-color: #292933;
 `
+// TODO: insert button to show the text
+const MessagePreview = (
+  <React.Fragment>
+    Someone sent you a Secret Message!
+    <MessageText>**********</MessageText>
+  </React.Fragment>
+)
+
 /**
  * When user arrives on index with an ID (-> receiver).
  *
@@ -31,6 +39,7 @@ const MessageReceive = ({ id, setAlert }) => {
   let handleData
   const [msgSenderIsNotified, setMsgReceived] = useState(true)
   const [msgContent, setMsgContent] = useState("The fake message")
+  const [previewMessage, setPreviewMessage] = useState(false)
 
   useEffect(() => {
     /**

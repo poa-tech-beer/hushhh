@@ -1,69 +1,82 @@
-import { useEffect, useRef, useState, useCallback } from "react"
-import { getPeer } from "./p2p"
+import { useEffect, useRef, useCallback } from "react"
+import { getPeer } from "./peerjs"
 
 /**
- * Usage
+ * This custom hook encapsulates everything related to peer to peer
+ * communication (initialization, connection, data exchange).
  *
- * @see https://reactjs.org/docs/hooks-custom.html
- */
-// const { data } = usePeer2Peer({
-//   id: "e3283héy!eyé!eçé",  // <- If we pass an ID, we know we are receiving a message
-//   onConnect: handleOpen,   // <- When sending a message : connection.current.send(formValuesRef.current) + When receiving : setMsgReceived(true)
-//   onData: handleData,      // <- When sending a message : setAlert("Receiver has opened your message.") + when receiving : setMsgContent(data)
-// })
-
-/**
- * Return: { data }
+ * It needs the following input :
+ * - onData: a function that will get called when data is received.
+ * - payload: [optional] the data (string) to send.
+ * - id: [optional] the message unique hash (received).
+ *
+ * It currently uses PeerJS.
+ * @see src/services/p2p.js
  */
 const usePeer2Peer = (config = {}) => {
-  const { id, onOpen } = config
+  const { id, payload, onData } = config
+
   let peer = useRef(null)
-  const [data, setData] = useState()
+  let payload = useRef(null)
+  let connection = useRef(null)
 
-  const handleData = useCallback(() => {
-    /**
-     * Now the sender.e.s knows we have opened his/her link, so we listen to the
-     * 2nd step : sender.e.s sends the actual message content.
-     */
-    setData(data)
-    console.log("handleData")
-  }, [data])
+  /**
+   * Carry on sending the payload when the connection heppens between 2 peers.
+   */
+  const handleOpen = useCallback(() => {
+    connection.current.send(payload)
+  }, [])
 
+  /**
+   * Trigger callback when data is received.
+   */
+  const handleData = useCallback(data => {
+    onData(data)
+  }, [])
+
+  /**
+   * This is necessary to deal with PeerJS async connection process. It connects
+   * to the PeerJS webservice. Once the unique id is generated, it calls
+   * handleConnection() to assign event handlers.
+   */
   useEffect(() => {
-    /**
-     * Make using peerjs async (workaround Gatsby build error).
-     */
-    const startPeer = async () => {
-      console.log("start peer")
-      peer.current = await getPeer()
+    if (!peer.current) {
+      const startPeer = async () => {
+        peer.current = await getPeer()
 
-      // When the user reaches this page, the sender is already waiting on the other
-      // "side" (with the id that was sent).
-      // @see src/components/MessageSend.js
-      const connection = peer.current.connect(id)
+        // If we don't have an ID, we're the sender : we request an id from
+        // PeerJS in order to instanciate a new connection (to be shared with
+        // the receiver).
+        if (!id) {
+          peer.current.on("connection", handleConnection)
+        }
 
-      /**
-       * Connection event handler.
-       *
-       * When peerjs connection will happen through third-party servers (websocket
-       * "handshake"), this event handler will be triggered.
-       */
-      connection.on("open", onOpen)
-      connection.on("data", handleData)
-    }
-
-    if (!peer.current) startPeer()
-
-    return () => {
-      if (peer.current) {
-        peer.current.off("open", onOpen)
-        peer.current.off("data", handleData)
+        // If we are the receiver, we want to connect to the sender by ID.
+        else {
+          connection = peer.current.connect(id)
+          connection.on("data", handleData)
+        }
       }
-      console.log("off")
+      startPeer()
     }
-  }, [id, peer, handleData, onOpen])
+    return () => {
+      peer.current && peer.current.off("connection", handleConnection)
+    }
+  }, [])
 
-  return { data }
+  /**
+   * When we are the sender, assign PeerJS connection event handlers (once it is
+   * created).
+   */
+  const handleConnection = useCallback(
+    _connection => {
+      _connection.on("error", handleConnectionError)
+      _connection.on("open", handleOpen)
+      _connection.on("data", handleData)
+      connection.current = _connection
+    },
+    [handleData, handleOpen]
+  )
 }
 
-export default usePeer
+export default usePeer2Peer
