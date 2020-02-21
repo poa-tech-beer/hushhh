@@ -1,7 +1,5 @@
-import React, { useContext, useState } from "react"
-import { Link } from "gatsby"
+import React, { useContext, useState, useCallback } from "react"
 
-import Image from "../components/Image"
 import SEO from "../components/SEO"
 import MessageSend from "../components/MessageSend"
 import MessageReceive from "../components/MessageReceive"
@@ -15,9 +13,9 @@ const IndexPage = ({ location }) => {
   const id = currentRoute.get("id")
   const [alertItem, setAlert] = useState({})
 
-  const handleAlert = function(msg, type) {
+  const handleAlert = useCallback((msg, type) => {
     setAlert({ body: msg, type: type ? type : "default" })
-  }
+  }, [])
 
   return (
     <>

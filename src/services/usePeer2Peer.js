@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react"
+import { useEffect, useRef, useCallback, useState } from "react"
 import { getPeer } from "./peerjs"
 
 /**
@@ -7,17 +7,16 @@ import { getPeer } from "./peerjs"
  *
  * It needs the following input :
  * - onData: a function that will get called when data is received.
- * - payload: [optional] the data (string) to send.
- * - id: [optional] the message unique hash (received).
+ * - payload: [optional] the data (string) to send to the other peer.
+ * - openedId: [optional] the message unique hash (received).
  *
  * It currently uses PeerJS.
  * @see src/services/p2p.js
  */
 const usePeer2Peer = (config = {}) => {
-  const { id, payload, onData } = config
+  const { openedId, payload, onData } = config
 
-  let peer = useRef(null)
-  let payload = useRef(null)
+  let [peer, setPeer] = useState()
   let connection = useRef(null)
 
   /**
@@ -35,32 +34,38 @@ const usePeer2Peer = (config = {}) => {
   }, [])
 
   /**
+   * Error handling -> browser console.
+   */
+  const handleConnectionError = err => console.log(err)
+
+  /**
    * This is necessary to deal with PeerJS async connection process. It connects
    * to the PeerJS webservice. Once the unique id is generated, it calls
    * handleConnection() to assign event handlers.
    */
   useEffect(() => {
-    if (!peer.current) {
+    if (!peer) {
       const startPeer = async () => {
-        peer.current = await getPeer()
+        const _peer = await getPeer()
+        setPeer(_peer)
 
         // If we don't have an ID, we're the sender : we request an id from
         // PeerJS in order to instanciate a new connection (to be shared with
         // the receiver).
-        if (!id) {
-          peer.current.on("connection", handleConnection)
+        if (!openedId) {
+          _peer.on("connection", handleConnection)
         }
 
         // If we are the receiver, we want to connect to the sender by ID.
         else {
-          connection = peer.current.connect(id)
-          connection.on("data", handleData)
+          connection.current = _peer.connect(id)
+          connection.current.on("data", handleData)
         }
       }
       startPeer()
     }
     return () => {
-      peer.current && peer.current.off("connection", handleConnection)
+      peer && peer.off("connection", handleConnection)
     }
   }, [])
 
@@ -77,6 +82,8 @@ const usePeer2Peer = (config = {}) => {
     },
     [handleData, handleOpen]
   )
+
+  return { id: peer ? peer.id : 0 }
 }
 
 export default usePeer2Peer
