@@ -18,15 +18,6 @@ const MessageText = styled.h2`
   background-color: #292933;
 `
 // TODO: insert button to show the text after setPreviewMessage(true)
-const MessagePreview = (
-  <React.Fragment>
-    Someone sent you a Secret Message!
-    <MessageText>**********</MessageText>
-    <CircleButton>
-      <PreviewButtonIcon />
-    </CircleButton>
-  </React.Fragment>
-)
 
 /**
  * When user arrives on index with an ID (-> receiver).
@@ -35,11 +26,22 @@ const MessagePreview = (
  */
 const MessageReceive = ({ id, setAlert }) => {
   const [msgContent, setMsgContent] = useState("The fake message")
+  const [previewMessage, setPreviewMessage] = useState(false)
 
-  console.log(id)
+  const MessagePreview = (
+    <React.Fragment>
+      Someone sent you a Secret Message!
+      <MessageText>**********</MessageText>
+      <CircleButton onClick={() => setPreviewMessage(true)}>
+        <PreviewButtonIcon />
+      </CircleButton>
+    </React.Fragment>
+  )
+
+  console.log("Message receive id = " + id)
 
   usePeer2Peer({
-    id,
+    openedId: id,
     payload: "I have received your message. Punk.",
     onData: data => {
       setMsgContent(data)
@@ -51,7 +53,9 @@ const MessageReceive = ({ id, setAlert }) => {
     setAlert("The sender is aware you have opened the message. 🕵")
   }, [msgContent])
 
-  if (msgContent.length) {
+  if (msgContent.length && previewMessage) {
+    return MessagePreview
+  } else if (msgContent.length) {
     return (
       <div className="u-vcenter" style={{ textAlign: "center" }}>
         <MessageText>{msgContent}</MessageText>

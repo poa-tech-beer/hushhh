@@ -95,6 +95,8 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
 
+  console.log("usePeer2Peer with payload = " + formValuesRef.current)
+
   const { id } = usePeer2Peer({
     payload: formValuesRef.current,
     onData: data => {
@@ -102,7 +104,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
     },
   })
 
-  console.log(id) // undefined
+  console.log("  -> result id = " + id) // undefined
 
   const host = id && `${window.location.host}?id=${id}`
 

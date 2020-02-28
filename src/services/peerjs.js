@@ -23,7 +23,7 @@ export const getPeer = async () => {
     } else {
       lastPeerId = peer.id
     }
-    console.log("ID: " + peer.id)
+    // console.log("ID: " + peer.id)
   })
 
   /**

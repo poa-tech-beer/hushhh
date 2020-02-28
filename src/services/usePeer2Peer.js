@@ -21,13 +21,16 @@ const usePeer2Peer = (config = {}) => {
   let connection = useRef(null)
 
   /**
-   * Carry on sending the payload when the connection heppens between 2 peers.
+   * When we are the sender, assign PeerJS connection event handlers (once it is
+   * created).
    */
-  const handleOpen = useCallback(id => {
-    connection.current.send(payload)
-    console.log("handleOpen")
-    console.log(id)
-    setPeerId(id)
+  const handleConnection = useCallback(_connection => {
+    console.log("handle connection")
+    _connection.on("error", handleConnectionError)
+    // _connection.on("open", handleOpen)
+    _connection.on("data", handleData)
+    connection.current = _connection
+    console.log(_connection)
   }, [])
 
   /**
@@ -48,23 +51,52 @@ const usePeer2Peer = (config = {}) => {
    * handleConnection() to assign event handlers.
    */
   useEffect(() => {
+    let _peer
+
     if (!peerId) {
       const startPeer = async () => {
-        const _peer = await getPeer()
+        _peer = await getPeer()
         // setPeer(_peer)
-        // console.log(_peer)
-        // console.log(_peer._id)
+        // console.log("_peer :")
+        // console.log(_peer.id)
 
         // If we don't have an ID, we're the sender : we request an id from
         // PeerJS in order to instanciate a new connection (to be shared with
         // the receiver).
         if (!openedId) {
-          console.log("on connection")
-          _peer.on("connection", handleConnection)
-        }
+          console.log("we don't have an ID, we're the sender")
 
-        // If we are the receiver, we want to connect to the sender by ID.
-        else {
+          /**
+           * Second PeerJS event handler when the PeerJS webservice sends its
+           * response.
+           *
+           * @see src/services/peerjs.js
+           */
+          _peer.on("open", () => {
+            setPeerId(_peer.id)
+          })
+
+          /**
+           * PeerJS event handler : when the connection actually happened
+           * between 2 peers.
+           */
+          _peer.on("connection", _connection => {
+            // TODO : when we are sender, we want to send the payload.
+            _connection.send(payload)
+            connection.current = _connection
+            console.log(
+              "on connection : sender actually sends the payload = " + payload
+            )
+
+            // TODO : when we are receiver, when need to let the sender know we
+            // received the payload.
+          })
+        } else {
+          // If we are the receiver, we want to connect to the sender by ID.
+          console.log(
+            "we are the receiver, we want to connect to the sender by ID - openedId = " +
+              openedId
+          )
           connection.current = _peer.connect(openedId)
           connection.current.on("data", handleData)
         }
@@ -72,24 +104,10 @@ const usePeer2Peer = (config = {}) => {
       startPeer()
     }
     return () => {
-      peer && peer.off("connection", handleConnection)
+      console.log(" !!! ---> off connection")
+      _peer && _peer.off("connection", handleConnection)
     }
   }, [])
-
-  /**
-   * When we are the sender, assign PeerJS connection event handlers (once it is
-   * created).
-   */
-  const handleConnection = useCallback(
-    _connection => {
-      console.log("handle connection")
-      _connection.on("error", handleConnectionError)
-      _connection.on("open", handleOpen)
-      _connection.on("data", handleData)
-      connection.current = _connection
-    },
-    [handleData, handleOpen]
-  )
 
   return { id: peerId ? peerId : 0 }
 }

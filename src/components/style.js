@@ -19,7 +19,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Kalam", cursive;
     font-size: calc(0.75rem + 1.2vw);
     background-color: #0c101e;
-    line-height: 140%;
 
     @media (min-width: 60rem) {
       font-size: 1.4rem;
