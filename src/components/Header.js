@@ -21,6 +21,14 @@ const Inner = styled.nav`
 
 const LogoContainer = styled.div`
   margin-top: -0.7em;
+  width: 25vw;
+  max-width: 150px;
+  height: auto;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const Header = ({ siteTitle }) => (
@@ -28,7 +36,7 @@ const Header = ({ siteTitle }) => (
     <Inner>
       <LinkNotUnderlined to="/" data-label={siteTitle}>
         <LogoContainer>
-          <Logo width="25vw" height={60} />
+          <Logo />
         </LogoContainer>
       </LinkNotUnderlined>
       <LinkNotUnderlined to="/how-it-works" style={{ marginLeft: "auto" }}>
