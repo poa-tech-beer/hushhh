@@ -1,7 +1,5 @@
 import React, { useContext, useState, useCallback } from "react"
-import { Link } from "gatsby"
 
-import Image from "../components/Image"
 import SEO from "../components/SEO"
 import MessageSend from "../components/MessageSend"
 import MessageReceive from "../components/MessageReceive"

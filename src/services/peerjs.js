@@ -1,7 +1,7 @@
-// // See https://github.com/peers/peerjs
-// // See https://github.com/jmcker/Peer-to-Peer-Cue-System/blob/master/send.html
-// // See https://github.com/peers/peerjs/blob/master/examples/index.jsx
-
+// See https://github.com/peers/peerjs
+// See https://github.com/jmcker/Peer-to-Peer-Cue-System/blob/master/send.html
+// See https://github.com/peers/peerjs/blob/master/examples/index.jsx
+// See https://github.com/peers/peerjs/blob/master/examples/index.jsx
 export const getPeer = async () => {
   let lastPeerId = null
   const Peer = await import(/* webpackChunkName: "peerjs" */ `peerjs`).then(
@@ -23,7 +23,7 @@ export const getPeer = async () => {
     } else {
       lastPeerId = peer.id
     }
-    console.log("ID: " + peer.id)
+    // console.log("ID: " + peer.id)
   })
 
   /**

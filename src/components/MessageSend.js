@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from "react"
 import styled from "styled-components"
 import TextareaAutosize from "react-textarea-autosize"
 
-import { getPeer } from "../services/p2p"
 // import FileUploader from "./FileUploader"
 
 import { ReactComponent as SendButtonIcon } from "../images/send.svg"
@@ -12,6 +11,7 @@ import { ReactComponent as CopyButtonIcon } from "../images/copy.svg"
 // import { SendButton, CopyButton, ShareButton } from "../"
 
 import { Title as BaseTitle, FormContainer, CircleButton } from "./style"
+import usePeer2Peer from "../services/usePeer2Peer"
 
 const Title = styled(BaseTitle)`
   font-size: 100%;
@@ -92,14 +92,23 @@ const Container = styled.div`
  * @see src/pages/index.js
  */
 const MessageSend = ({ onConnected, setAlert, location }) => {
-  let peer = useRef(null)
-  let connection = useRef(null)
   let formValuesRef = useRef(null)
 
   const [formValues, setFormState] = useState()
   const [isFormSubmit, setFormSubmit] = useState(false)
-  const [isFontReady, setFontReady] = useState(false)
-  const host = peer.current && `${location.host}?id=${peer.current.id}`
+
+  console.log("usePeer2Peer with payload = " + formValuesRef.current)
+
+  const { id } = usePeer2Peer({
+    payload: formValuesRef.current,
+    onData: data => {
+      setAlert("Receiver has opened your message.")
+    },
+  })
+
+  console.log("  -> result id = " + id) // undefined
+
+  const host = id && `${window.location.host}?id=${id}`
 
   // When form is submitted, display alert.
   useEffect(() => {
@@ -109,30 +118,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
   }, [isFormSubmit, setAlert])
 
   formValuesRef.current = formValues
-
-  // Add errors event listeners
-  const handleConnectionError = err => console.log(err)
-  const handleOpen = useCallback(() => {
-    connection.current.send(formValuesRef.current)
-  }, [])
-  const handleData = useCallback(
-    data => {
-      console.log("handleData")
-      setAlert("Receiver has opened your message.")
-    },
-    [setAlert]
-  )
-
-  const handleConnection = useCallback(
-    _connection => {
-      _connection.on("error", handleConnectionError)
-      _connection.on("open", handleOpen)
-      _connection.on("data", handleData)
-
-      connection.current = _connection
-    },
-    [handleData, handleOpen]
-  )
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(host)
@@ -152,36 +137,6 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
       console.log("navigator.share is undefined")
     }
   }, [host])
-
-  useEffect(() => {
-    /**
-     * Event handler: when the receiver opens the link
-     *
-     * (so, keep window open, for heaven's sake)
-     */
-    if (!peer.current) {
-      const startPeer = async () => {
-        peer.current = await getPeer()
-
-        peer.current.on("connection", handleConnection)
-      }
-
-      startPeer()
-    }
-
-    return () => {
-      peer.current && peer.current.off("connection", handleConnection)
-    }
-  }, [handleConnection])
-
-  // TODO [wip] font loading below : finished ?
-  useEffect(() => {
-    document.fonts.ready.then(() => {
-      setTimeout(() => {
-        setFontReady(true)
-      }, 1000)
-    })
-  }, [])
 
   // Not submitted yet (enter message + show button "send").
   if (!isFormSubmit) {

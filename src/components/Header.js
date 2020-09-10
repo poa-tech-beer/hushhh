@@ -3,6 +3,8 @@ import React from "react"
 import styled from "styled-components"
 import { LinkNotUnderlined } from "../components/style"
 
+import { ReactComponent as Logo } from "../images/logo.svg"
+
 const Container = styled.header`
   position: absolute;
   top: 0;
@@ -11,15 +13,32 @@ const Container = styled.header`
 `
 const Inner = styled.nav`
   display: flex;
+  align-items: center;
   color: white;
-  padding: 1em 1.618em;
+  padding: 1.5em 1.618em;
   width: 100%;
+`
+
+const LogoContainer = styled.div`
+  margin-top: -0.7em;
+  width: 25vw;
+  max-width: 150px;
+  height: auto;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const Header = ({ siteTitle }) => (
   <Container>
     <Inner>
-      <LinkNotUnderlined to="/">{siteTitle}</LinkNotUnderlined>
+      <LinkNotUnderlined to="/" data-label={siteTitle}>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
+      </LinkNotUnderlined>
       <LinkNotUnderlined to="/how-it-works" style={{ marginLeft: "auto" }}>
         🤔 How it works
       </LinkNotUnderlined>
