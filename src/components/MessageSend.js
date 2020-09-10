@@ -76,7 +76,7 @@ const ShareText = styled.span`
   font-size: 4em;
 
   @media (min-width: 60rem) {
-    font-size: 6.05vw;
+    font-size: 5vw;
   }
 `
 
