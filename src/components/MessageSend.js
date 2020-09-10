@@ -160,6 +160,7 @@ const MessageSend = ({ onConnected, setAlert, location }) => {
             <div>
               <MessageInput
                 rows={1}
+                maxRows={3}
                 placeholder="Type your Secret Message ✍️"
                 autoFocus
                 onInput={e => {
