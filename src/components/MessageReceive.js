@@ -25,7 +25,7 @@ const MessageText = styled.h2`
  * @see src/pages/index.js
  */
 const MessageReceive = ({ id, setAlert }) => {
-  const [msgContent, setMsgContent] = useState("The fake message")
+  const [msgContent, setMsgContent] = useState()
   const [previewMessage, setPreviewMessage] = useState(false)
 
   const MessagePreview = (
@@ -51,11 +51,11 @@ const MessageReceive = ({ id, setAlert }) => {
   // "React way": when msgContent changes, setAlert
   useEffect(() => {
     setAlert("The sender is aware you have opened the message. 🕵")
-  }, [msgContent])
+  }, [msgContent, setAlert])
 
-  if (msgContent.length && previewMessage) {
+  if (msgContent && previewMessage) {
     return MessagePreview
-  } else if (msgContent.length) {
+  } else if (msgContent) {
     return (
       <div className="u-vcenter" style={{ textAlign: "center" }}>
         <MessageText>{msgContent}</MessageText>
