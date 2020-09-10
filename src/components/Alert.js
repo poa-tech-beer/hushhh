@@ -24,8 +24,10 @@ const Alert = ({ item }) => {
         position: "fixed",
         top: "-100%",
         right: 0,
-        left: 0,
-        opacity: 0,
+        // left: 0,
+        // opacity: 0,
+        margin: "0 25%",
+        width: "50%",
       }}
     >
       <p
