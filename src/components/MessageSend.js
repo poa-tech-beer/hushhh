@@ -10,7 +10,12 @@ import { ReactComponent as CopyButtonIcon } from "../images/copy.svg"
 
 // import { SendButton, CopyButton, ShareButton } from "../"
 
-import { Title as BaseTitle, FormContainer, CircleButton } from "./style"
+import {
+  Title as BaseTitle,
+  FormContainer,
+  CircleButton,
+  resetButton,
+} from "./style"
 import usePeer2Peer from "../services/usePeer2Peer"
 
 const Title = styled(BaseTitle)`
@@ -43,7 +48,7 @@ const SendButton = styled(CircleButton)`
   opacity: ${props => (props.isVisible ? 1 : 0)};
 `
 
-const CopyButton = styled(CircleButton)`
+const CopyButton = styled(resetButton)`
   position: inherit;
   margin-left: 15px;
   color: var(--gray);
