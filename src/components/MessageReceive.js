@@ -1,21 +1,51 @@
 import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
 import { ReactComponent as PreviewButtonIcon } from "../images/check.svg"
-import { CircleButton } from "./style"
+import { CircleButton, Title } from "./style"
 import usePeer2Peer from "../services/usePeer2Peer"
 
-const MessageText = styled.h2`
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // min-height: 100vh;
-  // padding-top: 20vh;
-  text-decoration: underline white;
-  font-size: 115%;
-  padding: 3em;
-  margin: 0 5em;
+const Container = styled.div`
+  position: relative;
+  margin-top: -6em;
+`
+
+const MessageTitle = styled(Title)`
+  margin-bottom: 1em;
+`
+
+const MessageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  min-height: 275px;
+  margin: 0 auto;
+  padding: 3.5em;
   border-radius: 1em;
-  background-color: #292933;
+  background-color: #2b3042;
+`
+
+const ViewMessageBtn = styled(CircleButton)`
+  border-radius: 105px 128px 98px 108px;
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 2em;
+`
+
+const MessageText = styled.h3`
+  margin: 0;
+  font-size: 3em;
+`
+
+const MessageMask = styled.h3`
+  font-size: 4.5em;
+  letter-spacing: 0.5em;
+  margin-top: 0.4em;
+  margin-bottom: -0.4em;
 `
 // TODO: insert button to show the text after setPreviewMessage(true)
 
@@ -26,17 +56,7 @@ const MessageText = styled.h2`
  */
 const MessageReceive = ({ id, setAlert }) => {
   const [msgContent, setMsgContent] = useState()
-  const [previewMessage, setPreviewMessage] = useState(false)
-
-  const MessagePreview = (
-    <React.Fragment>
-      Someone sent you a Secret Message!
-      <MessageText>**********</MessageText>
-      <CircleButton onClick={() => setPreviewMessage(true)}>
-        <PreviewButtonIcon />
-      </CircleButton>
-    </React.Fragment>
-  )
+  const [messageUnlocked, setMessageUnlocked] = useState(false)
 
   console.log("Message receive id = " + id)
 
@@ -53,21 +73,23 @@ const MessageReceive = ({ id, setAlert }) => {
     setAlert("The sender is aware you have opened the message. 🕵")
   }, [msgContent, setAlert])
 
-  if (msgContent && previewMessage) {
-    return MessagePreview
-  } else if (msgContent) {
-    return (
-      <div className="u-vcenter" style={{ textAlign: "center" }}>
-        <MessageText>{msgContent}</MessageText>
-      </div>
-    )
-  } else {
-    return (
-      <div className="u-vcenter" style={{ textAlign: "center" }}>
-        <MessageText>{`You are opening message id = '${id}'...`}</MessageText>
-      </div>
-    )
-  }
+  return (
+    <div className="u-vcenter u-text-center">
+      <Container>
+        <MessageTitle as="h2">Someone sent you a Secret Message!</MessageTitle>
+        <MessageContainer>
+          {messageUnlocked ? (
+            <MessageText>{msgContent || "..."}</MessageText>
+          ) : (
+            <MessageMask>*********</MessageMask>
+          )}
+        </MessageContainer>
+        <ViewMessageBtn onClick={() => setMessageUnlocked(true)}>
+          <PreviewButtonIcon />
+        </ViewMessageBtn>
+      </Container>
+    </div>
+  )
 }
 
 export default MessageReceive

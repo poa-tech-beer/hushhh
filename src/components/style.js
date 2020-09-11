@@ -95,6 +95,7 @@ const GlobalStyle = createGlobalStyle`
 
   .u-text-center {
     text-align: center;
+    align-items: center;
   }
 `
 
@@ -117,16 +118,21 @@ const FormContainer = styled.div`
   margin-top: calc(50vh - 300px);
 `
 
-const CircleButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const resetButton = styled.button`
   border: none;
   cursor: pointer;
   outline: none;
+  background: none;
+`
+
+const CircleButton = styled(resetButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-color: inherit;
+  background-color: white;
+  border-radius: 9999px;
   transition: all 0.25s;
 
   &:hover {
@@ -134,4 +140,11 @@ const CircleButton = styled.button`
   }
 `
 
-export { CircleButton, GlobalStyle, Title, LinkNotUnderlined, FormContainer }
+export {
+  resetButton,
+  CircleButton,
+  GlobalStyle,
+  Title,
+  LinkNotUnderlined,
+  FormContainer,
+}
